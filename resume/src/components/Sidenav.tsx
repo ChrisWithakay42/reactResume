@@ -10,7 +10,7 @@ const Sidenav = () => {
     };
 
     return (
-        <div>
+        <div className='relative'>
             <AiOutlineMenu onClick={handleNav} className='absolute top-4 right-4 z-[99] md:hidden'/>
             {
                 nav ? (
@@ -59,16 +59,19 @@ const Sidenav = () => {
                     </a>
                     <a href='#profile'
                        className='rounded-full shadow-lg bg-gray-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200'>
+                        <BsPerson size={20}/>
+                    </a>
+                    <a href='#work'
+                       className='rounded-full shadow-lg bg-gray-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200'>
+                        <AiOutlineProject size={20}/>
+                    </a>
+                    <a href='#projects'
+                       className='rounded-full shadow-lg bg-gray-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200'>
                         <GrProjects size={20}/>
                     </a>
-                    <a href='#work' className='rounded-full shadow-lg bg-gray-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200'>
-                        <AiOutlineProject size={20} />
-                    </a>
-                    <a href='#projects' className='rounded-full shadow-lg bg-gray-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200'>
-                        <BsPerson size={20} />
-                    </a>
-                    <a href='#contact' className='rounded-full shadow-lg bg-gray-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200'>
-                        <AiOutlineMail size={20} />
+                    <a href='#contact'
+                       className='rounded-full shadow-lg bg-gray-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200'>
+                        <AiOutlineMail size={20}/>
                     </a>
                     {/*<a href='#main' className='rounded-full shadow-lg bg-gray-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200'>*/}
                     {/*    <AiOutlineMail size={20} />*/}
