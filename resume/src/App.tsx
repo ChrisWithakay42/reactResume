@@ -3,6 +3,7 @@ import Main from "./components/Main";
 import Work from "./components/Work.tsx";
 import Profile from "./components/Profile.tsx";
 import Projects from "./components/Projects.tsx";
+import {Contact} from "./components/Contact.tsx";
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
             <Profile/>
             <Work/>
             <Projects />
+            <Contact />
         </div>
   )
 }
