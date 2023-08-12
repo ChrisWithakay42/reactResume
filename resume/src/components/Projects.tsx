@@ -1,4 +1,3 @@
-// TODO: source photos for projects to be uploaded eventually
 import ProjectItem from "./ProjectItem.tsx";
 import test_1 from "../assets/test_1.jpg"
 
