@@ -1,9 +1,18 @@
 stages:
-  - test
+  - build
+  - deploy
 
-test_job:
-  stage: test
+build:
+  stage: build
+  image: registry.gitlab.com/codewithakay42/reactresume
+  script:
+    -npm ci
+    -npm build
+  artifacts:
+    name: "artifacts"
+    untracked: true
+    expire_in: 30 mins
+    paths:
+      - dist/
   tags:
     - docker
-  script:
-    - echo "Hello, World!"
