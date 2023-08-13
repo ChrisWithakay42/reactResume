@@ -1,5 +1,5 @@
 
-const ProjectItem = ({img, title}: {img: never; title: string}) => {
+const ProjectItem = ({img, title}: {img: string; title: string}) => {
     return (
         <div className='relative flex items-center justify-center h-auto w-full shadow-xl shdow-gray-400 rounded-xl group hover:bg-gradient-to-r from-gray-200 to-[#001b5e]'>
             <img src={img} alt={title} className='rounded-xl group hover:opacity-10'/>
