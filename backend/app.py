@@ -1,9 +1,7 @@
 from flask import Flask
-from flask import request
-from flask_cors import CORS
-from flask_mail import Mail
-from flask_mail import Message
 
+from backend.extensions import cors
+from backend.extensions import mail
 from config import Config
 
 
@@ -22,19 +20,10 @@ def create_app(config_object=None):
 
 
 def register_extensions(app):
-    Mail(app)
-    CORS(app)
+    mail.init_app(app)
+    cors(app)
 
 
-def submit_form() -> int:
-    data = request.form
-    name = data['name']
-    phone = data['phone']
-    email = data['email']
-    subject = data['subject']
-    message = data['message']
-    msg = Message(subject, sender=email, recipients=['recipient@example.com'])
-    msg.body = f"Name: {name}\nPhone: {phone}\nEmail: {email}\nMessage: {message}"
-    mail.send(msg)
-
-    return 202  # request Accepted
+def register_blueprints(app):
+    from contact import contact_blueprint
+    app.register_blueprint(contact_blueprint)

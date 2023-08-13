@@ -12,3 +12,5 @@ class Config:
     MAIL_USE_SSL: bool = os.getenv('MAIL_USE_SSL')
     MAIL_USERNAME: str = os.getenv('MAIL_USERNAME')
     MAIL_PASSWORD: str = os.getenv('MAIL_PASSWORD')
+
+    FORWARDING_EMAIL_ADDRESS: str = os.getenv('SENDER_EMAIL')
