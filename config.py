@@ -13,4 +13,4 @@ class Config:
     MAIL_USERNAME: str = os.getenv('MAIL_USERNAME')
     MAIL_PASSWORD: str = os.getenv('MAIL_PASSWORD')
 
-    FORWARDING_EMAIL_ADDRESS: str = os.getenv('SENDER_EMAIL')
+    MAIL_DEFAULT_SENDER: str = os.getenv('SENDER_EMAIL')
