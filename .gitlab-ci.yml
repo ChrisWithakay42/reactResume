@@ -6,6 +6,7 @@ build:
   stage: build
   image: registry.gitlab.com/codewithakay42/reactresume
   script:
+    - cd frontend
     - npm i
     - npm run build
   artifacts:

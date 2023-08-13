@@ -18,7 +18,8 @@ RUN apk add --no-cache nodejs npm
 WORKDIR /app
 
 # Copy package.json and package-lock.json
-COPY ./frontend/package.json ./frontend/package-lock.json /app/
+COPY ./frontend/package.json /app/
+COPY ./frontend/package-lock.json /app/
 
 # Install project dependencies
 RUN npm install
