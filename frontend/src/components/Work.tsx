@@ -29,6 +29,7 @@ const data: WorkData[] = [
     },
 
 ]
+
 const Work = () => {
     return (
         <div id='work' className='max-w-[90%] md:max-w-[1040px] m-auto  md:pl-4 py-16'>
