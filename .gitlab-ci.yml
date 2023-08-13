@@ -22,11 +22,7 @@ deploy:
   stage: deploy
   image: registry.gitlab.com/codewithakay42/reactresume  # Use the same image with Python and AWS CLI
   script:
-    - cd frontend
-    - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-    - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-    - if ! aws s3 ls s3://$AWS_S3_RESUME_BUCKET_NAME; then aws s3 mb s3://$AWS_S3_RESUME_BUCKET_NAME; fi
-    - aws s3 sync dist/ s3://$AWS_S3_RESUME_BUCKET_NAME/
+    - echo 'Deploying to S3 bucket'
   dependencies:
     - build
   tags:
