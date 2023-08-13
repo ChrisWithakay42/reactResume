@@ -27,3 +27,4 @@ dist-ssr
 ../.idea/*
 .env
 .vite
+.gl-config

@@ -1,1 +1,0 @@
-gitlab-runner register  --url https://gitlab.com  --token glrt-5A5WFkR6wobtbZaLqsuD
