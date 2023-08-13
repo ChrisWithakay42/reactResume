@@ -1,7 +1,8 @@
 import WorkItem from './WorkItem'
+import {WorkData} from "../types/WorkData.ts";
 
-// TODO Refactor this to an Interface
-const data = [
+
+const data: WorkData[] = [
     {
         year: 2020,
         title: 'Python Developer',
@@ -32,7 +33,7 @@ const Work = () => {
     return (
         <div id='work' className='max-w-[90%] md:max-w-[1040px] m-auto  md:pl-4 py-16'>
             <h1 className='text-4xl font-bold text-center text-[#001b5e]'>Work</h1>
-            {data.map((item, idx) => (
+            {data.map((item: WorkData, idx: number) => (
                 <WorkItem
                     key={idx}
                     year={item.year}
