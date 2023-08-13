@@ -6,7 +6,7 @@ build:
   stage: build
   image: registry.gitlab.com/codewithakay42/reactresume
   script:
-    - npm ci
+    - npm i
     - npm run build
   artifacts:
     name: "artifacts"
