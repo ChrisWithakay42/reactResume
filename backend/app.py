@@ -1,6 +1,5 @@
 from flask import Flask
 
-from backend import commands
 from backend.extensions import cors
 from backend.extensions import mail
 from backend.config import Config
@@ -34,4 +33,4 @@ def register_blueprints(app):
 
 
 def register_commands(app):
-    app.cli.add_command(commands.create_s3_bucket)
+    ...
