@@ -1,6 +1,7 @@
 stages:
   - build
-  - deploy
+  - deploy_to_s3
+  - deploy_to_lambda
 
 build:
   stage: build
@@ -19,11 +20,15 @@ build:
     - docker
 
 deploy:
-  stage: deploy
+  stage: deploy_to_s3
   image: registry.gitlab.com/codewithakay42/reactresume  # Use the same image with Python and AWS CLI
   script:
-    - echo 'Deploying to S3 bucket'
+    - cd cicd
+    - python deploy_website.py
   dependencies:
     - build
   tags:
     - docker
+
+lambda:
+  stage: deploy_to_lambda

@@ -27,4 +27,5 @@ dist-ssr
 ../.idea/*
 .env
 .vite
-.gl-config
+.gl-config__pycache__/
+*/__pycache__/*
