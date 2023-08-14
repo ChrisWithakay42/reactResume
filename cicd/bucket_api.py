@@ -10,7 +10,7 @@ class S3Manager:
     _s3_client = None
 
     def __init__(self):
-        self.client = self._get_s3_client()
+        self._s3_client = self._get_s3_client()
 
     @staticmethod
     def _get_s3_client():
@@ -20,9 +20,9 @@ class S3Manager:
             logger.error(f'There was an error connection to AWS services\n{e}')
         return client
 
-    def get_or_create_bucket(self, bucket_name):
+    def get_or_create_bucket(self, bucket_name: str) -> bool:
         try:
-            self.client.head_bucket(bucket_name)
+            self._s3_client.head_bucket(bucket_name)
             return True
         except ClientError as e:
             if int(e.response['Error']['Code']) >= 400:
@@ -31,7 +31,7 @@ class S3Manager:
                 )
             return False
 
-    def configure_bucket(self):
+    def configure_bucket(self, web_hosting: bool = False):
         ...
 
     def deploy_to_bucket(self):
