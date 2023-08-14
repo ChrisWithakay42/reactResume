@@ -1,7 +1,6 @@
 import json
 import logging
 import os
-from typing import Callable
 
 import boto3
 from botocore.exceptions import ClientError
