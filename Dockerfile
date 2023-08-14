@@ -25,7 +25,7 @@ COPY ./frontend/package-lock.json /app/
 RUN npm install
 
 # Copy the rest of the frontend files
-COPY ./frontend /app
+COPY . /app
 
 # Set the default command
 CMD [ "node" ]
