@@ -29,6 +29,3 @@ deploy:
     - build
   tags:
     - docker
-
-lambda:
-  stage: deploy_to_lambda
