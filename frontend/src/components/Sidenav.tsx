@@ -2,12 +2,29 @@ import {useState} from "react";
 import {AiOutlineMenu, AiOutlineHome, AiOutlineProject, AiOutlineMail} from "react-icons/ai";
 import {GrProjects} from "react-icons/gr";
 import {BsPerson} from "react-icons/bs";
+// import { TooltipComponent } from "@syncfusion/ej2-react-popups"
 
 const Sidenav = () => {
     const [nav, setNav] = useState(false)
     const handleNav = () => {
         setNav(!nav);
     };
+
+    // const MenuItemWithTooltip: React.FC<{
+    //     content: string;
+    //     icon: React.ReactNode;
+    //     link: string;
+    // }> = ({ content, icon, link }) => (
+    //     <TooltipComponent content={content} openDelay={300}>
+    //         <a
+    //             onClick={handleNav}
+    //             href={link}
+    //             className='rounded-full shadow-lg bg-gray-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200'
+    //         >
+    //             {icon}
+    //         </a>
+    //     </TooltipComponent>
+    // );
 
     return (
         <div className='relative'>

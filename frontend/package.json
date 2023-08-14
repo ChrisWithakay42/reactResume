@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@syncfusion/ej2": "^19.4.48",
+    "@syncfusion/ej2-base": "^19.4.48",
+    "@syncfusion/ej2-react-popups": "^19.4.52",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "postcss": "^8.4.27",
