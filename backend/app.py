@@ -21,6 +21,8 @@ def create_app(config_object=None):
 
     register_commands(app)
 
+    return app
+
 
 def register_extensions(app):
     mail.init_app(app)
