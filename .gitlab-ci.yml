@@ -23,6 +23,7 @@ deploy:
   stage: deploy_to_s3
   image: registry.gitlab.com/codewithakay42/reactresume  # Use the same image with Python and AWS CLI
   script:
+    - ls
     - cd cicd
     - python deploy_website.py
   dependencies:
