@@ -23,20 +23,21 @@ class AwsWrapper:
         return client
 
 
-class S3Wrapper(AwsWrapper):
+class BucketWrapper(AwsWrapper):
 
-    def get_bucket(self, bucket_name) -> bool:
+    def exists(self, bucket_name) -> bool:
         try:
             bucket = self.client.head_bucket(Bucket=bucket_name)
             logger.info(f'Checking if bucket {bucket_name} exists')
-        except ClientError:
-            logger.error(f'Bucket {bucket_name} does not exist')
-            return False
+        except ClientError as e:
+            if e.response['Error']['Code'] == 'NoSuchBucket':
+                logger.error(f'Bucket {bucket_name} does not exist')
+                return False
         else:
             if bucket:
                 return True
 
-    def create_bucket(self, bucket_name: str, delete_default_public_access_block: bool = True):
+    def create(self, bucket_name: str, delete_default_public_access_block: bool = True):
         bucket_configuration = {
             'LocationConstraint': 'eu-west-2',
         }
@@ -66,7 +67,7 @@ class S3Wrapper(AwsWrapper):
         except ClientError as e:
             logger.error(f'An error occurred while configuring bucket for static web hosting\n{e}')
 
-    def deploy_files(self, bucket_name):
+    def upload_files(self, bucket_name):
         source_directory = '/frontend/dist'
         for root, _, files in os.walk(PROJECT_ROOT + source_directory):
             for file in files:
@@ -83,7 +84,7 @@ class S3Wrapper(AwsWrapper):
                     logger.error(f'An error occurred. Check logs for further details \n{e}')
         logger.info(f'Files successfully uploaded to {bucket_name} bucket.')
 
-    def set_bucket_acl(self, bucket_name):
+    def set_acl(self, bucket_name):
         bucket_policy = {
             'Version': '2012-10-17',
             'Statement': [{
@@ -101,3 +102,9 @@ class S3Wrapper(AwsWrapper):
             logger.info('Setting bucket ACL')
         except ClientError as e:
             logger.error(f'An error occurred during the configuration of ACL\n{e}')
+
+
+class LambdaWrapper(AwsWrapper):
+
+    def create_function(self, function_name: str):
+        ...
