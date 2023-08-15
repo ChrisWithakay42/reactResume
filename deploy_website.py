@@ -94,9 +94,11 @@ def main(bucket_name: str):
         create_bucket(client, bucket_name=bucket_name)
         deploy_files(client, bucket_name=bucket_name)
         configure_web_hosting(client, bucket_name=bucket_name, index_file='index.html')
+        set_bucket_acl(client, bucket_name)
     else:
         deploy_files(client, bucket_name=bucket_name)
         configure_web_hosting(client, bucket_name=bucket_name, index_file='index.html')
+        set_bucket_acl(client, bucket_name)
 
 
 if __name__ == '__main__':
