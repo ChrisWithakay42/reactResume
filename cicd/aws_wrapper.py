@@ -110,8 +110,26 @@ class LambdaWrapper(AwsWrapper):
     def create_deployment_package(source_dir, destination_file):
         ...
 
-    def create(self, function_name: str):
-        ...
+    def create(self, function_name, handler_name, iam_role, deployment_package):
+        try:
+            response = self.client.create_function(
+                FunctionName=function_name,
+                Description='Flask Mail server for codewithakay.com',
+                Runtime='python3.10',
+                Role=iam_role.arn,
+                Handler=handler_name,
+                Code={'ZipFile': deployment_package},
+                Publish=True)
+            function_arn = response['FunctionArn']
+            waiter = self.lambda_client.get_waiter('function_active_v2')
+            waiter.wait(FunctionName=function_name)
+            logger.info("Created function '%s' with ARN: '%s'.",
+                        function_name, response['FunctionArn'])
+        except ClientError:
+            logger.error("Couldn't create function %s.", function_name)
+            raise
+        else:
+            return function_arn
 
     def update_function_code(self, function_name, deployment_package):
         ...
