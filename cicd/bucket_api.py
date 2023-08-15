@@ -10,52 +10,78 @@ from cicd import PROJECT_ROOT
 logger = logging.getLogger(__name__)
 
 
-class S3Manager:
-    _s3_client = None
+class S3Wrapper:
 
     def __init__(self):
-        self._s3_client = self._get_s3_client()
+        self.client = self.get_client()
 
     @staticmethod
-    def _get_s3_client():
+    def get_client():
         try:
             client = boto3.client('s3')
         except ClientError as e:
-            logger.error(f'There was an error connection to AWS services\n{e}')
+            logger.error(f'{e}')
         return client
 
-    def get_or_create_bucket(self, bucket_name: str, region: str) -> tuple:
-        location = {'LocationConstraint': region}
+    def get_bucket(self, bucket_name) -> bool:
         try:
-            logger.info(f'Checking if bucket with name {bucket_name} exists')
-            bucket = self._s3_client.head_bucket(Bucket=bucket_name)
-            return bucket, False  # If we find the bucket, we assume its configuration is already set
-        except self._s3_client.exceptions.NoSuchBucket as e:
-            logger.info(
-                f'The bucket named: "{bucket_name}" does not exist or you do not have permission to access it!'
-                f'See error below for more details'
-                f'{e}'
-                f'Creating new bucket {bucket_name}'
-            )
-            bucket = self._s3_client.create_bucket(
-                Bucket=bucket_name,
-                CreateBucketConfiguration=location
-            )
-            return bucket, True
+            bucket = self.client.head_bucket(Bucket=bucket_name)
+            logger.info(f'Checking if bucket {bucket_name} exists')
+        except ClientError:
+            logger.error(f'Bucket {bucket_name} does not exist')
+            return False
+        else:
+            if bucket:
+                return True
 
-    def configure_bucket_for_web_hosting(
-            self,
-            bucket_name: str,
-            index_document: str = 'index.html',
-            error_document: str = None
-    ):
-        website_configuration = {
-            'IndexDocument': {'Suffix': index_document},
-            'ErrorDocument': {'Key': error_document}
+    def create_bucket(self, bucket_name: str, delete_default_public_access_block: bool = True):
+        bucket_configuration = {
+            'LocationConstraint': 'eu-west-2',
         }
-        self._s3_client.put_bucket_website(Bucket=bucket_name, WebsiteConfiguration=website_configuration)
+        try:
+            self.client.create_bucket(
+                Bucket=bucket_name,
+                CreateBucketConfiguration=bucket_configuration
+            )
+        except ClientError as e:
+            logger.error(f'An error occurred\n{e}')
+        if delete_default_public_access_block:
+            logger.info('Deleting default public access configuration')
+            self.client.delete_public_access_block(
+                Bucket=bucket_name,
+            )
 
-        # Set the bucket policy to make objects publicly readable
+    def configure_web_hosting(self, bucket_name: str, index_file: str, error_file: str = None):
+        bucket_website_configuration = {
+            'IndexDocument': {'Suffix': index_file},
+            # 'ErrorDocument': {'Key': error_file}
+        }
+        try:
+            self.client.put_bucket_website(
+                Bucket=bucket_name,
+                WebsiteConfiguration=bucket_website_configuration
+            )
+        except ClientError as e:
+            logger.error(f'An error occurred while configuring bucket for static web hosting\n{e}')
+
+    def deploy_files(self, bucket_name):
+        source_directory = '/frontend/dist'
+        for root, _, files in os.walk(PROJECT_ROOT + source_directory):
+            for file in files:
+                local_path = os.path.join(root, file)
+                s3_path = os.path.relpath(local_path, PROJECT_ROOT + source_directory)
+                extra_args = {
+                    'ContentType': 'text/html',
+                    'ContentDisposition': 'inline',
+                }
+                try:
+                    self.client.upload_file(local_path, bucket_name, s3_path, ExtraArgs=extra_args)
+                    logger.info(f'Uploading {file} to {s3_path}...')
+                except ClientError as e:
+                    logger.error(f'An error occurred. Check logs for further details \n{e}')
+        logger.info(f'Files successfully uploaded to {bucket_name} bucket.')
+
+    def set_bucket_acl(self, bucket_name):
         bucket_policy = {
             'Version': '2012-10-17',
             'Statement': [{
@@ -65,21 +91,11 @@ class S3Manager:
                 'Resource': f'arn:aws:s3:::{bucket_name}/*'
             }]
         }
-        self._s3_client.put_bucket_policy(Bucket=bucket_name, Policy=json.dumps(bucket_policy))
-
-        logger.info(
-            f'Configured bucket {bucket_name} for web hosting with index document: {index_document}, error document: '
-            f'{error_document}, and public read ACL'
-        )
-
-    def deploy_to_bucket(self, bucket_name: str, source_directory: str = '/frontend/dist'):
-        for root, _, files in os.walk(PROJECT_ROOT + source_directory):
-            for file in files:
-                local_path = os.path.join(root, file)
-                s3_path = os.path.join(local_path, source_directory)
-                try:
-                    self._s3_client.upload_file(local_path, bucket_name, s3_path)
-                except ClientError as e:
-                    logger.error(f'An error occurred. Check logs for further details \n{e}')
-        logger.info(f'Files successfully uploaded to {bucket_name} bucket.')
-
+        try:
+            self.client.put_bucket_policy(
+                Bucket='codewithakay.com',
+                Policy=json.dumps(bucket_policy)
+            )
+            logger.info('Setting bucket ACL')
+        except ClientError as e:
+            logger.error(f'An error occurred during the configuration of ACL\n{e}')

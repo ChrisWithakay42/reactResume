@@ -3,7 +3,7 @@ stages:
   - deploy_to_s3
   - deploy_to_lambda
 
-build:
+app_build:
   stage: build
   image: registry.gitlab.com/codewithakay42/reactresume
   script:
@@ -19,7 +19,7 @@ build:
   tags:
     - docker
 
-deploy:
+deploy_to_s3:
   stage: deploy_to_s3
   image: registry.gitlab.com/codewithakay42/reactresume  # Use the same image with Python and AWS CLI
   script:
@@ -30,3 +30,9 @@ deploy:
     - build
   tags:
     - docker
+
+deploy_to_lambda:
+  stage: deploy_to_lambda
+  image: registry.gitlab.com/codewithakay42/reactresume
+  script:
+    - echo 'Hello Lambda'
