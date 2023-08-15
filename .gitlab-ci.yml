@@ -27,7 +27,7 @@ deploy_to_s3:
     - pwd
     - python deploy_website.py
   dependencies:
-    - build
+    - app_build
   tags:
     - docker
 
