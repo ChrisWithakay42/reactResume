@@ -25,7 +25,7 @@ deploy:
   script:
     - pip install -r requirements.txt
     - pwd
-    - python cicd/deploy_website.py
+    - python deploy_website.py
   dependencies:
     - build
   tags:
