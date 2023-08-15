@@ -61,7 +61,7 @@ def deploy_files(client, bucket_name):
             local_path = os.path.join(root, file)
             s3_path = os.path.relpath(local_path, PROJECT_ROOT + source_directory)
             extra_args = {
-                'ContentType': 'application/javascript',  # Set the Content-Type header
+                'ContentType': 'application/javascript js',  # Set the Content-Type header
                 'ContentDisposition': 'inline',  # Set the Content-Disposition header
             }
             try:
