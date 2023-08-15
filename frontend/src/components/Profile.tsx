@@ -34,7 +34,7 @@ const Profile = () => {
 
                 <br/><br/>
 
-                If you're looking for a junior engineer who brings both technical prowess and a creative approach to
+                If you're looking for a engineer who brings both technical prowess and a creative approach to
                 the table, I'm excited to connect.
                 <a className='text-[#ff6600]' href='#contact'> Let's collaborate and bring your next project to life!</a>
             </p>
