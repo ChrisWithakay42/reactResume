@@ -24,7 +24,7 @@ deploy:
   image: registry.gitlab.com/codewithakay42/reactresume  # Use the same image with Python and AWS CLI
   script:
     - pip install -r requirements.txt
-#    - python cicd/deploy_website.py
+    - python cicd/deploy_website.py
   dependencies:
     - build
   tags:
