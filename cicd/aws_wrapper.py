@@ -106,5 +106,12 @@ class BucketWrapper(AwsWrapper):
 
 class LambdaWrapper(AwsWrapper):
 
-    def create_function(self, function_name: str):
+    @staticmethod
+    def create_deployment_package(source_dir, destination_file):
+        ...
+
+    def create(self, function_name: str):
+        ...
+
+    def update_function_code(self, function_name, deployment_package):
         ...

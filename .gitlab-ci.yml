@@ -1,11 +1,17 @@
+variables:
+  MAIN_IMAGE: registry.gitlab.com/codewithakay42/reactresume
 stages:
   - build
   - deploy_to_s3
   - deploy_to_lambda
 
+.install_python_packages:
+  script:
+    - pip install requirement.txt
+
 app_build:
   stage: build
-  image: registry.gitlab.com/codewithakay42/reactresume
+  image: $MAIN_IMAGE
   script:
     - cd frontend
     - npm i
@@ -19,20 +25,23 @@ app_build:
   tags:
     - docker
 
-deploy_to_s3:
+deploy_website:
+  extends: .install_python_packages
   stage: deploy_to_s3
-  image: registry.gitlab.com/codewithakay42/reactresume  # Use the same image with Python and AWS CLI
+  image: $MAIN_IMAGE
   script:
-    - pip install -r requirements.txt
-    - pwd
     - python deploy_website.py
   dependencies:
     - app_build
   tags:
     - docker
 
-deploy_to_lambda:
+deploy_mail_server:
+  extends: .install_python_packages
   stage: deploy_to_lambda
-  image: registry.gitlab.com/codewithakay42/reactresume
+  image: $MAIN_IMAGE
   script:
-    - echo 'Hello Lambda'
+    - python deploy_mail_server
+  only:
+    refs:
+      - main
