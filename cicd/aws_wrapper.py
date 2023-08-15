@@ -10,18 +10,20 @@ from cicd import PROJECT_ROOT
 logger = logging.getLogger(__name__)
 
 
-class S3Wrapper:
-
-    def __init__(self):
-        self.client = self.get_client()
+class AwsWrapper:
+    def __init__(self, service_name: str):
+        self.client = self.get_client(service_name)
 
     @staticmethod
-    def get_client():
+    def get_client(service_name):
         try:
-            client = boto3.client('s3')
+            client = boto3.client(service_name)
         except ClientError as e:
             logger.error(f'{e}')
         return client
+
+
+class S3Wrapper(AwsWrapper):
 
     def get_bucket(self, bucket_name) -> bool:
         try:

@@ -1,13 +1,13 @@
 import logging
 
-from cicd.bucket_api import S3Wrapper
+from cicd.aws_wrapper import S3Wrapper
 
 logger = logging.getLogger(__name__)
 
 
 def main(bucket_name: str):
-    s3_client = S3Wrapper()
-    bucket = s3_client.get_bucket()
+    s3_client = S3Wrapper('s3')
+    bucket = s3_client.get_bucket(bucket_name=bucket_name)
     if not bucket:
         s3_client.create_bucket(bucket_name=bucket_name)
         s3_client.deploy_files(bucket_name=bucket_name)
