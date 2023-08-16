@@ -1,7 +1,9 @@
+import io
 import json
 import logging
 import mimetypes
 import os
+import zipfile
 
 import boto3
 from botocore.exceptions import ClientError
@@ -12,8 +14,10 @@ logger = logging.getLogger(__name__)
 
 
 class AwsWrapper:
-    def __init__(self, service_name: str):
+    def __init__(self, service_name: str, iam_resource=None):
         self.client = self.get_client(service_name)
+        if service_name == 'lambda':
+            self.iam_resource = iam_resource
 
     @staticmethod
     def get_client(service_name):
@@ -112,28 +116,45 @@ class BucketWrapper(AwsWrapper):
 class LambdaWrapper(AwsWrapper):
 
     @staticmethod
-    def create_deployment_package(source_dir, destination_file):
-        ...
-    
+    def create_deployment_package(source_dir: str) -> bytes:
+        buffer = io.BytesIO()
+        with zipfile.ZipFile(buffer, 'w') as zipped:
+            for root, _, files in os.walk(PROJECT_ROOT + source_dir):
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    arcname = os.path.relpath(file_path, os.path.join(PROJECT_ROOT, source_dir))
+                    zipped.write(file_path, arcname)
+        buffer.seek(0)
+        return buffer.read()
+
     def create(self, function_name, handler_name, iam_role, deployment_package):
         try:
             response = self.client.create_function(
                 FunctionName=function_name,
                 Description='Flask Mail server for codewithakay.com',
                 Runtime='python3.10',
-                Role=iam_role.arn,
+                Role=iam_role,
                 Handler=handler_name,
                 Code={'ZipFile': deployment_package},
                 Publish=True)
-            function_arn = response['FunctionArn']
-            waiter = self.client.get_waiter('function_active_v2')
-            waiter.wait(FunctionName=function_name)
             logger.info(f'Created function {function_name}')
-        except ClientError:
-            logger.error(f'Could not create function {function_name}')
-            raise
+        except ClientError as e:
+            logger.error(f'Could not create function {function_name}.\n{e}')
         else:
+            function_arn = response['FunctionArn']
+            # waiter = self.client.get_waiter('function_active_v2')
+            # waiter.wait(FunctionName=function_name)
             return function_arn
 
     def update_function_code(self, function_name, deployment_package):
-        ...
+        try:
+            response = self.client.update_function_code(
+                FunctionName=function_name, ZipFile=deployment_package
+            )
+        except ClientError as err:
+            logger.error(
+                f'Could not update function code! See errors below'
+                f'{err["Error"]["Code"]}\n{err["Error"]["Message"]}'
+            )
+        else:
+            return response
