@@ -73,12 +73,12 @@ class BucketWrapper(AwsWrapper):
             for file in files:
                 local_path = os.path.join(root, file)
                 s3_path = os.path.relpath(local_path, PROJECT_ROOT + source_directory)
-                extra_args = {
-                    'ContentType': 'text/html',
-                    'ContentDisposition': 'inline',
-                }
+                # extra_args = {
+                #     'ContentType': 'text/html',
+                #     'ContentDisposition': 'inline',
+                # }
                 try:
-                    self.client.upload_file(local_path, bucket_name, s3_path, ExtraArgs=extra_args)
+                    self.client.upload_file(local_path, bucket_name, s3_path,)
                     logger.info(f'Uploading {file} to {s3_path}...')
                 except ClientError as e:
                     logger.error(f'An error occurred. Check logs for further details \n{e}')
