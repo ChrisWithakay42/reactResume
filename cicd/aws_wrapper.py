@@ -114,7 +114,7 @@ class LambdaWrapper(AwsWrapper):
     @staticmethod
     def create_deployment_package(source_dir, destination_file):
         ...
-
+    
     def create(self, function_name, handler_name, iam_role, deployment_package):
         try:
             response = self.client.create_function(
@@ -126,12 +126,11 @@ class LambdaWrapper(AwsWrapper):
                 Code={'ZipFile': deployment_package},
                 Publish=True)
             function_arn = response['FunctionArn']
-            waiter = self.lambda_client.get_waiter('function_active_v2')
+            waiter = self.client.get_waiter('function_active_v2')
             waiter.wait(FunctionName=function_name)
-            logger.info("Created function '%s' with ARN: '%s'.",
-                        function_name, response['FunctionArn'])
+            logger.info(f'Created function {function_name}')
         except ClientError:
-            logger.error("Couldn't create function %s.", function_name)
+            logger.error(f'Could not create function {function_name}')
             raise
         else:
             return function_arn

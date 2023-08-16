@@ -21,7 +21,7 @@ const data: WorkData[] = [
         details: 'During this period, I embarked on a significant personal project, wholeheartedly dedicating myself to ' +
             'the development of a SaaS product named TheCragStack. This comprehensive Client Management System was ' +
             'meticulously tailored for the indoor climbing center niche. In crafting this system, I engineered the ' +
-            'backend using Python-Django and DRF, while the frontend was built upon ReactJS for a seamless user ' +
+            'contat_us using Python-Django and DRF, while the frontend was built upon ReactJS for a seamless user ' +
             'experience. ' +
             'To ensure streamlined deployment, we implemented a robust DevOps strategy, featuring GitLab pipelines ' +
             'hosted on E2C. Furthermore, the application\'s deployment is optimized through AWS services, with the ' +
