@@ -17,6 +17,7 @@ app_build:
     - npm i
     - npm run build
     - pwd
+    - ls
     # TODO Find the ViteJS solution for this!!
     - sed -i '' 's/<title>.*<\/title>/<title>Code With a K<\/title>/' index.html
   artifacts:
