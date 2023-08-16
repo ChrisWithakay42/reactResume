@@ -16,6 +16,8 @@ app_build:
     - cd frontend
     - npm i
     - npm run build
+    # TODO Find the ViteJS solution for this!!
+    - sed -i '' 's/<title>.*<\/title>/<title>Code With a K<\/title>/' dist/index.html
   artifacts:
     name: "artifacts"
     untracked: true
