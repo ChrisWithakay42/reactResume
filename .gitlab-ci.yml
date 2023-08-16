@@ -21,7 +21,7 @@ app_build:
     - cd dist
     - ls
     # TODO Find the ViteJS solution for this!!
-#    - sed -i '' 's/<title>.*<\/title>/<title>Code With a K<\/title>/' index.html
+    - sed -i '' 's/<title>.*<\/title>/<title>Code With a K<\/title>/' index.html
   artifacts:
     name: "artifacts"
     untracked: true
