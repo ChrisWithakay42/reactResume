@@ -30,7 +30,7 @@ deploy_website:
   stage: deploy_to_s3
   image: $MAIN_IMAGE
   script:
-    - pip install -r requirement.txt
+    - pip install -r requirements.txt
     - python deploy_website.py
   dependencies:
     - app_build
@@ -42,7 +42,7 @@ deploy_mail_server:
   stage: deploy_to_lambda
   image: $MAIN_IMAGE
   script:
-    - pip install -r requirement.txt
+    - pip install -r requirements.txt
     - python deploy_mail_server
   tags:
     - docker
