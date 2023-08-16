@@ -27,6 +27,7 @@ def get_iam_role():
 
 
 def main():
+    # boto3.set_stream_logger('')
     role = get_iam_role()
     client = LambdaWrapper(service_name='lambda', iam_resource=role)
     deployment_package = client.create_deployment_package(source_dir='/')
