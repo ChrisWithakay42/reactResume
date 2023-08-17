@@ -2,7 +2,8 @@ import {useState} from "react";
 import {AiOutlineMenu, AiOutlineHome, AiOutlineProject, AiOutlineMail} from "react-icons/ai";
 import {GrProjects} from "react-icons/gr";
 import {BsPerson} from "react-icons/bs";
-// import { TooltipComponent } from "@syncfusion/ej2-react-popups"
+// import {TooltipComponent} from "@syncfusion/ej2-react-popups"
+// import Tooltip from "../components/Tooltip.tsx"
 
 const Sidenav = () => {
     const [nav, setNav] = useState(false)
@@ -69,7 +70,9 @@ const Sidenav = () => {
                 <div className='flex flex-col'>
                     <a href='#main'
                        className='rounded-full shadow-lg bg-gray-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200'>
+                        {/*<Tooltip content={'Home'}>*/}
                         <AiOutlineHome size={20}/>
+                        {/*</Tooltip>*/}
                     </a>
                     <a href='#profile'
                        className='rounded-full shadow-lg bg-gray-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200'>

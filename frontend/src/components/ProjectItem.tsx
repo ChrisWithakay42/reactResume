@@ -1,6 +1,7 @@
 // import {useState} from "react";
 
 const ProjectItem = ({img, title, stack}: { img: string; title: string, stack: string }) => {
+
     // const [isModalOpen, setIsModalOpen] = useState(false);
     //
     // const openModal = () => {
@@ -22,8 +23,7 @@ const ProjectItem = ({img, title, stack}: { img: string; title: string, stack: s
                 </h3>
                 <p className='pb-4 pt-2 text-white text-center'>{stack}</p>
                 <a href='/'>
-                    <p className='text-center p-3 rounded-lg bg-white text-gray-700 font-bold cursor-pointer text-lg'>More
-                        Info</p>
+                    <p className='text-center p-3 rounded-lg bg-white text-gray-700 font-bold cursor-pointer text-lg'>More Info</p>
                 </a>
             </div>
         </div>
