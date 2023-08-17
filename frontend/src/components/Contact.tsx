@@ -1,10 +1,8 @@
 import React, {useState} from "react";
 import axios from "axios";
+import config from "../config.ts"
 
 export const Contact = () => {
-
-    const api_gateway_url: string = import.meta.env.AWS_API_GATEWAY_URL
-
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
@@ -17,8 +15,7 @@ export const Contact = () => {
         event.preventDefault();
 
         try {
-            // TODO add api_gateway_url
-            await axios.post(api_gateway_url, formData);
+            await axios.post(config.apiUrl, formData);
             // Reset the form after successful submission
             setFormData({
                 name: '',

@@ -120,10 +120,10 @@ class LambdaWrapper(AwsWrapper):
     def create_deployment_package(source_dir: str) -> bytes:
         buffer = io.BytesIO()
         with zipfile.ZipFile(buffer, 'w') as zipped:
-            for root, _, files in os.walk(PROJECT_ROOT + source_dir):
+            for root, _, files in os.walk(source_dir):
                 for file in files:
                     file_path = os.path.join(root, file)
-                    arcname = os.path.relpath(file_path, os.path.join(PROJECT_ROOT, source_dir))
+                    arcname = os.path.relpath(file_path, source_dir)
                     zipped.write(file_path, arcname)
         buffer.seek(0)
         return buffer.read()

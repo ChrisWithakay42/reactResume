@@ -4,8 +4,11 @@ import boto3
 from botocore.exceptions import ClientError
 
 
-def send_mail(context, event):
-    message_details = json.loads(event['body'])
+def send_mail(event, context):
+    message_details = event.get('body', None)
+
+    if message_details is None:
+        raise ValueError('There was an error with the request body')
 
     name = message_details.get('name', None)
     phone = message_details.get('phone', None)
