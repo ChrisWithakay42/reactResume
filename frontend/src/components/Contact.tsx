@@ -57,7 +57,16 @@ export const Contact = () => {
         }
 
         try {
-            await axios.post(config.apiUrl, formData);
+            await axios.post(config.apiUrl, formData, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+                .then(response => {
+                    if (response.data.success) {
+                        console.log('Success!!')
+                    }
+                })
             // Reset the form after successful submission
             setFormData({
                 name: '',
