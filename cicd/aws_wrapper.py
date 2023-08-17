@@ -14,15 +14,16 @@ logger = logging.getLogger(__name__)
 
 
 class AwsWrapper:
-    def __init__(self, service_name: str, iam_resource=None):
-        self.client = self.get_client(service_name)
+    def __init__(self, service_name: str, region: str, iam_resource=None):
+        self.region = region
+        self.client = self.get_client(service_name, self.region)
         if service_name == 'lambda':
             self.iam_resource = iam_resource
 
     @staticmethod
-    def get_client(service_name):
+    def get_client(service_name: str, region: str):
         try:
-            client = boto3.client(service_name)
+            client = boto3.client(service_name=service_name, region_name=region)
         except ClientError as e:
             logger.error(f'{e}')
         return client
@@ -149,7 +150,8 @@ class LambdaWrapper(AwsWrapper):
     def update_function_code(self, function_name, deployment_package):
         try:
             response = self.client.update_function_code(
-                FunctionName=function_name, ZipFile=deployment_package
+                FunctionName=function_name,
+                ZipFile=deployment_package
             )
         except ClientError as err:
             logger.error(
@@ -158,3 +160,6 @@ class LambdaWrapper(AwsWrapper):
             )
         else:
             return response
+
+    def update_function_configuration(self):
+        ...

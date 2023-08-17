@@ -1,5 +1,7 @@
+import io
 import logging
 import os
+import zipfile
 
 import boto3
 from boto3.exceptions import ResourceLoadException
@@ -33,7 +35,7 @@ def main():
     deployment_package = client.create_deployment_package(source_dir='/')
     try:
         client.create(
-            function_name='codewithakay_mail_server',
+            function_name='codewithakay_mail_server_test',
             handler_name='send_mail',
             iam_role=role.arn,
             deployment_package=deployment_package
@@ -43,4 +45,9 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    resource = get_iam_role()
+    client = LambdaWrapper(service_name='lambda', iam_resource=resource, )
+    deployment_package = client.create_deployment_package('/contact_us')
+    # client.update_function_code(function_name='codewithakay_mail_server', deployment_package='contact_us.zip')
+    print(deployment_package)
