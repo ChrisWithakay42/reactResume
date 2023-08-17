@@ -47,7 +47,7 @@ def main():
 if __name__ == '__main__':
     # main()
     resource = get_iam_role()
-    client = LambdaWrapper(service_name='lambda', iam_resource=resource, )
+    client = LambdaWrapper(service_name='lambda', iam_resource=resource, region=os.getenv('AWS_REGION'))
     deployment_package = client.create_deployment_package('/contact_us')
     # client.update_function_code(function_name='codewithakay_mail_server', deployment_package='contact_us.zip')
     print(deployment_package)

@@ -1,4 +1,5 @@
 import logging
+import os
 
 from cicd.aws_wrapper import BucketWrapper
 
@@ -6,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 
 def main(bucket_name: str):
-    bucket = BucketWrapper('s3')
+    bucket = BucketWrapper('s3', region=os.getenv('AWS_REGION'))
     exists = bucket.exists(bucket_name=bucket_name)
     if not exists:
         logger.info(f'Bucket {bucket_name} does not exist. Creating now...')
