@@ -93,7 +93,7 @@ export const Contact = () => {
                             value={formData.name}
                             onChange={handleInputChange}
                         />
-                        {errors.name && <span className="text-red-500">{errors.name}</span>}
+                        {errors.name && <span className='text-red-500'>{errors.name}</span>}
                     </div>
                     <div className='flex flex-col'>
                         <label className='uppercase text-sm py-2'>Phone</label>
@@ -104,7 +104,7 @@ export const Contact = () => {
                             value={formData.phone}
                             onChange={handleInputChange}
                         />
-                        {errors.phone && <span className='uppercase text-sm py-2'>{errors.phone}</span>}
+                        {errors.phone && <span className='text-red-500'>{errors.phone}</span>}
                     </div>
                 </div>
                 <div className='flex flex-col py-2'>
@@ -116,7 +116,7 @@ export const Contact = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                     />
-                    {errors.email && <span className='uppercase text-sm py-2'>{errors.email}</span>}
+                    {errors.email && <span className='text-red-500'>{errors.email}</span>}
                 </div>
                 <div className='flex flex-col py-2'>
                     <label className='uppercase text-sm py-2'>Subject</label>
@@ -127,7 +127,7 @@ export const Contact = () => {
                         value={formData.subject}
                         onChange={handleInputChange}
                     />
-                    {errors.subject && <span className='uppercase text-sm py-2'>{errors.subject}</span>}
+                    {errors.subject && <span className='text-red-500'>{errors.subject}</span>}
                 </div>
                 <div className='flex flex-col py-2'>
                     <label className='uppercase text-sm py-2'>Message</label>
@@ -138,7 +138,7 @@ export const Contact = () => {
                         value={formData.message}
                         onChange={handleInputChange}
                     />
-                    {errors.message && <span className='uppercase text-sm py-2'>{errors.message}</span>}
+                    {errors.message && <span className='text-red-500'>{errors.message}</span>}
                 </div>
                 <button type='submit' className='bg-[#001b5e] text-gray-100 mt-1 w-full p-4 rounded-lg'>
                     Submit
