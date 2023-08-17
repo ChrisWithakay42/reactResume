@@ -15,6 +15,7 @@ export const Contact = () => {
         event.preventDefault();
 
         try {
+            console.log(config.apiUrl)
             await axios.post(config.apiUrl, formData);
             // Reset the form after successful submission
             setFormData({
