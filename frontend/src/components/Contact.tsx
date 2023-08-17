@@ -53,7 +53,7 @@ export const Contact = () => {
         try {
             await axios.post(config.apiUrl, formData, {
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/json'
                 }
             })
                 .then(response => {
