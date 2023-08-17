@@ -10,7 +10,6 @@ app_build:
   stage: build
   image: $MAIN_IMAGE
   script:
-    - echo $AWS_API_GATEWAY_URL
     - cd frontend
     - npm i
     - npm run build
