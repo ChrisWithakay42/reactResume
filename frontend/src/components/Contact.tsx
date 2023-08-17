@@ -34,7 +34,7 @@ export const Contact = () => {
         }
 
         if (!formData.email) {
-            validationErrors.phone = 'Email address is required';
+            validationErrors.email = 'Email address is required';
         }
 
         if (!formData.subject) {
