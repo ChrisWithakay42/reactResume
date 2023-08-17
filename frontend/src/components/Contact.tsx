@@ -2,20 +2,61 @@ import React, {useState} from "react";
 import axios from "axios";
 import config from "../config.ts"
 
+interface FormData {
+    name: string;
+    phone: string;
+    email: string;
+    subject: string;
+    message: string;
+}
+
 export const Contact = () => {
-    const [formData, setFormData] = useState({
+    const initialFormData: FormData = {
         name: '',
         phone: '',
         email: '',
         subject: '',
         message: ''
-    });
+    };
+
+    const [formData, setFormData] = useState<FormData>(initialFormData);
+    const [errors, setErrors] = useState<Partial<FormData>>({}); // State for holding validation errors
+
+    const validateForm = (): boolean => {
+        const validationErrors: Partial<FormData> = {};
+
+        if (!formData.name) {
+            validationErrors.name = 'Name is required';
+        }
+
+        if (!formData.phone) {
+            validationErrors.phone = 'Phone number is required';
+        }
+
+        if (!formData.email) {
+            validationErrors.phone = 'Email address is required';
+        }
+
+        if (!formData.subject) {
+            validationErrors.subject = 'Subject is required';
+        }
+
+        if (!formData.message) {
+            validationErrors.message = 'Message is required'
+        }
+
+        setErrors(validationErrors);
+        return Object.keys(validationErrors).length === 0;
+    };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+        if (!validateForm()) {
+            return;
+        }
+
         try {
-            console.log(config.apiUrl)
             await axios.post(config.apiUrl, formData);
             // Reset the form after successful submission
             setFormData({
@@ -31,7 +72,7 @@ export const Contact = () => {
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = event.target;
+        const {name, value} = event.target;
         setFormData((prevFormData) => ({
             ...prevFormData,
             [name]: value
@@ -41,7 +82,7 @@ export const Contact = () => {
     return (
         <div id='contact' className='max-w-[90%] md:max-w-[1040px] m-auto md:pl-4 py-16'>
             <h1 className='text-4xl font-bold text-center text-[#001b5e]'>Contact</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} method='POST'>
                 <div className='grid md:grid-cols-2 gap-4 w-full py-2 '>
                     <div className='flex flex-col'>
                         <label className='uppercase text-sm py-2'>Name</label>
@@ -52,6 +93,7 @@ export const Contact = () => {
                             value={formData.name}
                             onChange={handleInputChange}
                         />
+                        {errors.name && <span className="text-red-500">{errors.name}</span>}
                     </div>
                     <div className='flex flex-col'>
                         <label className='uppercase text-sm py-2'>Phone</label>
@@ -62,6 +104,7 @@ export const Contact = () => {
                             value={formData.phone}
                             onChange={handleInputChange}
                         />
+                        {errors.phone && <span className='uppercase text-sm py-2'>{errors.phone}</span>}
                     </div>
                 </div>
                 <div className='flex flex-col py-2'>
@@ -73,6 +116,7 @@ export const Contact = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                     />
+                    {errors.email && <span className='uppercase text-sm py-2'>{errors.email}</span>}
                 </div>
                 <div className='flex flex-col py-2'>
                     <label className='uppercase text-sm py-2'>Subject</label>
@@ -83,6 +127,7 @@ export const Contact = () => {
                         value={formData.subject}
                         onChange={handleInputChange}
                     />
+                    {errors.subject && <span className='uppercase text-sm py-2'>{errors.subject}</span>}
                 </div>
                 <div className='flex flex-col py-2'>
                     <label className='uppercase text-sm py-2'>Message</label>
@@ -92,7 +137,8 @@ export const Contact = () => {
                         name='message'
                         value={formData.message}
                         onChange={handleInputChange}
-                    ></textarea>
+                    />
+                    {errors.message && <span className='uppercase text-sm py-2'>{errors.message}</span>}
                 </div>
                 <button type='submit' className='bg-[#001b5e] text-gray-100 mt-1 w-full p-4 rounded-lg'>
                     Submit

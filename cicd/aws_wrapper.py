@@ -155,9 +155,7 @@ class LambdaWrapper(AwsWrapper):
             )
         except ClientError as err:
             logger.error(
-                f'Could not update function code! See errors below'
-                f'{err["Error"]["Code"]}\n{err["Error"]["Message"]}'
-            )
+                f'Could not update function code! See errors below.\n{err}')
         else:
             return response
 
