@@ -23,31 +23,25 @@ export const Contact = () => {
     const [errors, setErrors] = useState<Partial<FormData>>({}); // State for holding validation errors
 
     const validateForm = (): boolean => {
-        const validationErrors: Partial<FormData> = {};
+        const validationRules: { field: keyof FormData; message: string }[] = [
+        { field: 'name', message: 'Name is required' },
+        { field: 'phone', message: 'Phone number is required' },
+        { field: 'email', message: 'Email address is required' },
+        { field: 'subject', message: 'Subject is required' },
+        { field: 'message', message: 'Message is required' }
+    ];
 
-        if (!formData.name) {
-            validationErrors.name = 'Name is required';
+    const validationErrors: Partial<FormData> = {};
+
+    validationRules.forEach(rule => {
+        if (!formData[rule.field]) {
+            validationErrors[rule.field] = rule.message;
         }
+    });
 
-        if (!formData.phone) {
-            validationErrors.phone = 'Phone number is required';
-        }
-
-        if (!formData.email) {
-            validationErrors.email = 'Email address is required';
-        }
-
-        if (!formData.subject) {
-            validationErrors.subject = 'Subject is required';
-        }
-
-        if (!formData.message) {
-            validationErrors.message = 'Message is required'
-        }
-
-        setErrors(validationErrors);
-        return Object.keys(validationErrors).length === 0;
-    };
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+};
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
