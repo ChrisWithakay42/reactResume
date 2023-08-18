@@ -52,16 +52,12 @@ export const Contact = () => {
         }
 
         try {
-            await axios.post(apiUrl, formData, {
+            const response = await axios.post(apiUrl, formData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
-                .then(response => {
-                    if (response.data.success) {
-                        console.log('Success!!')
-                    }
-                })
+            console.log('Lambda Response:', response);
             // Reset the form after successful submission
             setFormData({
                 name: '',
