@@ -3,6 +3,8 @@ import moto
 import pytest
 from moto import mock_s3
 
+from cicd.aws_wrapper import S3Wrapper
+
 
 @pytest.fixture
 def mock_s3_client():
@@ -11,11 +13,6 @@ def mock_s3_client():
 
 
 @pytest.fixture
-def mock_bucket(mock_s3_client):
-    mock_s3_client.create_bucket(
-        Bucket='test_bucket',
-        CreateBucketConfiguration={
-            'LocationConstraint': 'eu-west-2',
-        }
-    )
-
+def s3_wrapper(mock_s3_client):
+    wrapper = S3Wrapper(mock_s3_client, region_name='eu-west-2')
+    return wrapper

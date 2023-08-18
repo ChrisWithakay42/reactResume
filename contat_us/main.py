@@ -1,7 +1,10 @@
 import json
+import logging
 
 import boto3
 from botocore.exceptions import ClientError
+
+logger = logging.getLogger(__name__)
 
 
 def send_mail(event, context):
@@ -43,5 +46,6 @@ def send_mail(event, context):
 def handle_message(name: str, phone: str, email: str, subject: str, message: str):
     try:
         client = boto3.client('ses', ...)
-    except:
-        pass
+    except ClientError as err:
+        if err.response['Error']['Code'] == 'SomeException':
+            print(str(err))
