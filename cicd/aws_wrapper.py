@@ -29,3 +29,17 @@ class S3Wrapper:
         except ClientError as err:
             if err.response['Error']['Code'] == 'BucketAlreadyOwnedByYou':
                 raise BucketAlreadyOwnedByYou(bucket_name=bucket_name)
+
+    def configure_bucket_for_web_hosting(self, bucket_name: str, error_file: str = None):
+        config = {}
+
+        if error_file:
+            config['ErrorDocument'] = error_file
+
+        try:
+            self.client.put_bucket_website(
+                Bucket=bucket_name,
+                WebsiteConfiguration=config,
+            )
+        except ClientError as err:
+            if err.response['Error']['Code'] == 'Something':

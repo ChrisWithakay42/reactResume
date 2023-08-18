@@ -1,4 +1,5 @@
 import pytest
+from botocore.exceptions import ClientError
 
 from cicd.exceptions import BucketAlreadyOwnedByYou
 
@@ -30,8 +31,24 @@ class TestS3Wrapper:
                 bucket_configuration=self.location_constraints
             )
 
-    def test_set_bucket_up_for_web_hosting(self, s3_wrapper):
-        ...
+    def test_set_bucket_up_for_web_hosting(self, mock_s3_client, s3_wrapper):
+        s3_wrapper.create_bucket(
+            bucket_name=self.bucket_name,
+            bucket_configuration=self.location_constraints
+        )
+
+        with pytest.raises(ClientError) as err:
+            mock_s3_client.get_bucket_website(
+                Bucket=self.bucket_name
+            )
+
+        assert err.value.response['Error']['Code'] == 'NoSuchWebsiteConfiguration'
+
+        s3_wrapper.configure_bucket_for_web_hosting(bucket_name=self.bucket_name)
+        response = mock_s3_client.get_bucket_website(
+            Bucket=self.bucket_name
+        )
+        assert response['ResponseMetadata']['HTTPStatusCode'] == 200
 
     def test_set_bucket_acl_policies(self, s3_wrapper):
         ...
