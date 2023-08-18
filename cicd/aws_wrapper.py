@@ -29,14 +29,14 @@ class AwsWrapper:
         return client
 
 
-class BucketWrapper(AwsWrapper):
+class S3Wrapper(AwsWrapper):
 
     def exists(self, bucket_name) -> bool:
         try:
-            bucket = self.client.head_bucket(Bucket=bucket_name)
             logger.info(f'Checking if bucket {bucket_name} exists')
+            bucket = self.client.head_bucket(Bucket=bucket_name)
         except ClientError as e:
-            if e.response['Error']['Code'] == 'NoSuchBucket':
+            if e.response['Error']['Code'] == '404':
                 logger.error(f'Bucket {bucket_name} does not exist')
                 return False
         else:
@@ -54,11 +54,12 @@ class BucketWrapper(AwsWrapper):
             )
         except ClientError as e:
             logger.error(f'An error occurred\n{e}')
-        if delete_default_public_access_block:
-            logger.info('Deleting default public access configuration')
-            self.client.delete_public_access_block(
-                Bucket=bucket_name,
-            )
+        else:
+            if delete_default_public_access_block:
+                logger.info('Deleting default public access configuration')
+                self.client.delete_public_access_block(
+                    Bucket=bucket_name,
+                )
 
     def configure_web_hosting(self, bucket_name: str, index_file: str, error_file: str = None):
         bucket_website_configuration = {

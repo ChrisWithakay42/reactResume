@@ -1,7 +1,6 @@
 // import {useState} from "react";
 
 const ProjectItem = ({img, title, stack}: { img: string; title: string, stack: string }) => {
-
     // const [isModalOpen, setIsModalOpen] = useState(false);
     //
     // const openModal = () => {

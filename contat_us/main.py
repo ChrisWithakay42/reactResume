@@ -38,3 +38,10 @@ def send_mail(event, context):
             'StatusCode': 200,
             'body': json.dumps('Email Sent Successfully')
         }
+
+
+def handle_message(name: str, phone: str, email: str, subject: str, message: str):
+    try:
+        client = boto3.client('ses', ...)
+    except:
+        pass
