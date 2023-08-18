@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
-import config from "../config.ts"
+// import config from "../config.ts"
 
 interface FormData {
     name: string;
@@ -43,6 +43,7 @@ export const Contact = () => {
     return Object.keys(validationErrors).length === 0;
 };
 
+    const apiUrl: string = 'https://0un73drall.execute-api.eu-west-2.amazonaws.com/contact'
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -51,7 +52,7 @@ export const Contact = () => {
         }
 
         try {
-            await axios.post(config.apiUrl, formData, {
+            await axios.post(apiUrl, formData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

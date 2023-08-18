@@ -4,7 +4,7 @@ import Work from "./components/Work.tsx";
 import Profile from "./components/Profile.tsx";
 import Projects from "./components/Projects.tsx";
 import {Contact} from "./components/Contact.tsx";
-import {Helmet} from "react-helmet"
+// import {Helmet} from "react-helmet"
 
 
 function App() {
