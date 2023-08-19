@@ -20,39 +20,31 @@ def send_mail(event, context):
 
     client = get_ses_client()
 
-    handle_message(
-        client=client,
-        sender_email='codewithakay@gmail.com',
-        recipient_email='kris@codewithakay.com',
-        subject=subject,
-        email_body=email_body
-    )
+    try:
+        client.send_email(
+            Source='codewithakay@gmail.com',
+            Destination={'ToAddresses': ['codewithakay@gmail.com']},
+            Message={
+                'Subject': {'Data': subject},
+                'Body': {'Text': {'Data': email_body}}
+            }
+        )
+        return {
+            'statusCode': 200,
+            'body': json.dumps('Email sent successfully')
+        }
+    except ClientError as e:
+        logger.error(f'An error occurred while trying to send the email.\n{e}')
+        return {
+            'statusCode': 500,
+            'body': json.dumps(f'Error: {str(e)}')
+        }
 
 
 def get_ses_client():
     try:
         client = boto3.client('ses', region_name='eu-west-2')
     except ClientError as err:
-        logger.error(f'An error occurred.\n{e}')
+        logger.error(f'An error occurred.\n{err}')
         raise
     return client
-
-
-def handle_message(
-        client,
-        sender_email: str,
-        recipient_email: str,
-        subject: str,
-        email_body: str
-):
-    try:
-        client.send_email(
-            Source=sender_email,
-            Destination={'ToAddresses': [recipient_email, ], },
-            Message={
-                'Subject': {'Data': subject},
-                'Body': {'Text': {'Data': email_body}}
-            }
-        )
-    except ClientError as e:
-        logger.error(f'An error occurred while trying to send the email.\n{e}')
