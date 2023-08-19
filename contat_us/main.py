@@ -8,10 +8,7 @@ logger = logging.getLogger(__name__)
 
 
 def send_mail(event, context):
-    message_details = event.get('body', None)
-
-    if message_details is None:
-        raise ValueError('There was an error with the request body')
+    message_details = json.loads(event.get('body', None))
 
     name = message_details.get('name', None)
     phone = message_details.get('phone', None)
@@ -21,31 +18,41 @@ def send_mail(event, context):
 
     email_body = f'Name: {name}\nPhone: {phone}\nEmail: {email}\nMessage: {message}'
 
-    client = boto3.client('ses', region_name='eu-west-2')
+    client = get_ses_client()
+
+    handle_message(
+        client=client,
+        sender_email='codewithakay@gmail.com',
+        recipient_email='kris@codewithakay.com',
+        subject=subject,
+        email_body=email_body
+    )
+
+
+def get_ses_client():
+    try:
+        client = boto3.client('ses', region_name='eu-west-2')
+    except ClientError as err:
+        logger.error(f'An error occurred.\n{e}')
+        raise
+    return client
+
+
+def handle_message(
+        client,
+        sender_email: str,
+        recipient_email: str,
+        subject: str,
+        email_body: str
+):
     try:
         client.send_email(
-            Source='codewithakay@gmail.com',
-            Destination='kris@codewithakay.com',
+            Source=sender_email,
+            Destination={'ToAddresses': [recipient_email, ], },
             Message={
                 'Subject': {'Data': subject},
                 'Body': {'Text': {'Data': email_body}}
             }
         )
     except ClientError as e:
-        return {
-            'StatusCode': 503,
-            'body': json.dumps(f'Error: {str(e)}')
-        }
-    else:
-        return {
-            'StatusCode': 200,
-            'body': json.dumps('Email Sent Successfully')
-        }
-
-
-def handle_message(name: str, phone: str, email: str, subject: str, message: str):
-    try:
-        client = boto3.client('ses', ...)
-    except ClientError as err:
-        if err.response['Error']['Code'] == 'SomeException':
-            print(str(err))
+        logger.error(f'An error occurred while trying to send the email.\n{e}')
