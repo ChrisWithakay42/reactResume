@@ -162,3 +162,30 @@ class LambdaWrapper(AwsWrapper):
 
     def update_function_configuration(self):
         ...
+
+# class S3Wrapper:
+#
+#     def __init__(self, client, region_name: str):
+#         self.client = client
+#         self.region = region_name
+#
+#     def create_bucket(self, bucket_name: str, bucket_configuration: dict) -> None:
+#         try:
+#             self.client.create_bucket(
+#                 Bucket=bucket_name,
+#                 CreateBucketConfiguration=bucket_configuration
+#             )
+#         except ClientError as err:
+#             if err.response['Error']['Code'] == 'BucketAlreadyOwnedByYou':
+#                 raise BucketAlreadyOwnedByYou(bucket_name=bucket_name)
+#
+#     def configure_bucket_for_web_hosting(self, bucket_name: str, error_file: str = None):
+#         config = {}
+#
+#         if error_file:
+#             config['ErrorDocument'] = error_file
+#
+#         self.client.put_bucket_website(
+#             Bucket=bucket_name,
+#             WebsiteConfiguration=config,
+#         )
