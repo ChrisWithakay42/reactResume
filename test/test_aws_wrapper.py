@@ -55,3 +55,9 @@ class TestS3Wrapper:
 
     def test_upload_files_to_bucket(self, s3_wrapper):
         ...
+
+
+class TestLambdaWrapper:
+
+    def test_create_lambda_function(self):
+        ...
