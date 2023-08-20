@@ -50,8 +50,13 @@ class TestS3Wrapper:
         )
         assert response['ResponseMetadata']['HTTPStatusCode'] == 200
 
-    def test_set_bucket_acl_policies(self, s3_wrapper):
-        ...
+        response = mock_s3_client.get_bucket_policy(
+            Bucket=self.bucket_name,
+        )
+        expected_data = ('{"Version": "2012-10-17", "Statement": [{"Effect": "Allow", "Principal": '
+                         '"*", "Action": ["s3:GetObject"], "Resource": "arn:aws:s3:::test_bucket/*"}]}')
+
+        assert response['Policy'] == expected_data
 
     def test_upload_files_to_bucket(self, s3_wrapper):
         ...

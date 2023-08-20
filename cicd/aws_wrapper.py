@@ -1,11 +1,8 @@
-import io
 import json
 import logging
 import mimetypes
 import os
-import zipfile
 
-import boto3
 from botocore.exceptions import ClientError
 
 from cicd import PROJECT_ROOT
@@ -40,3 +37,41 @@ class S3Wrapper:
             Bucket=bucket_name,
             WebsiteConfiguration=config,
         )
+        bucket_policy = {
+            'Version': '2012-10-17',
+            'Statement': [{
+                'Effect': 'Allow',
+                'Principal': '*',
+                'Action': ['s3:GetObject'],
+                'Resource': f'arn:aws:s3:::{bucket_name}/*'
+            }]
+        }
+        try:
+            self.client.put_bucket_policy(
+                Bucket=bucket_name,
+                Policy=json.dumps(bucket_policy)
+            )
+            logger.info('Setting bucket ACL')
+        except ClientError as e:
+            logger.error(f'An error occurred during the configuration of ACL\n{e}')
+
+    def upload_files(self, bucket_name: str, source_dir: str):
+        for root, _, files in os.walk(PROJECT_ROOT + source_dir):
+            for file in files:
+                local_path = os.path.join(root, file)
+                s3_path = os.path.relpath(local_path, PROJECT_ROOT + source_dir)
+
+                mime_type, _ = mimetypes.guess_type(local_path)
+
+                metadata = {
+                    'ContentType': mime_type,
+                    'ContentDisposition': 'inline',
+                }
+
+                try:
+                    self.client.upload_file(local_path, bucket_name, s3_path, ExtraArgs=metadata)
+                    logger.info(f'Uploading {file} to {s3_path}...')
+                except ClientError as e:
+                    logger.error(f'An error occurred. Check logs for further details \n{e}')
+        logger.info(f'Files successfully uploaded to {bucket_name} bucket.')
+

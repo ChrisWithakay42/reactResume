@@ -43,4 +43,3 @@ class TestSendMailFunction:
 
         with pytest.raises(ValueError, match=f'The following fields are missing: {missing_field}'):
             send_mail(modified_event, context={})
-
