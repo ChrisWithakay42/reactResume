@@ -58,6 +58,7 @@ export const Contact = () => {
                     'Content-Type': 'application/json'
                 }
             })
+            console.log('Lambda Response:', response);
             // Reset the form after successful submission
             setFormData({
                 name: '',
