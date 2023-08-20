@@ -66,6 +66,7 @@ export const Contact = () => {
                 subject: '',
                 message: ''
             });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         } catch (error) {
             console.error('Error sending email:', error);
         }
