@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test('submitting contact form', async ({ page }) => {
+test('submitting contact form success', async ({ page }) => {
   await page.goto('http://localhost:3000');
 
   // Fill out the form

@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test e2e": "playwright test"
+    "test": "vite test",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@syncfusion/ej2-base": "^19.4.48",
@@ -24,6 +25,7 @@
     "tailwindcss": "^3.3.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.37.1",
     "@types/node": "^20.5.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
