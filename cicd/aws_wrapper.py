@@ -1,7 +1,9 @@
+import io
 import json
 import logging
 import mimetypes
 import os
+import zipfile
 
 from botocore.exceptions import ClientError
 
@@ -75,3 +77,21 @@ class S3Wrapper:
                     logger.error(f'An error occurred. Check logs for further details \n{e}')
         logger.info(f'Files successfully uploaded to {bucket_name} bucket.')
 
+
+class LamdbaWrapper:
+
+    def __init__(self, client, region_name: str, iam_resource):
+        self.client = client
+        self.region_name = region_name
+        self.iam_resource = iam_resource
+
+    @staticmethod
+    def create_deployment_file(source_dir: str) -> bytes:
+        buffer = io.BytesIO()
+        with zipfile.ZipFile(buffer, 'w') as zipped:
+            for root, _, files in os.walk(source_dir):
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    arcname = os.path.relpath(file_path, arcname)
+            buffer.seek(0)
+            return buffer.read()
