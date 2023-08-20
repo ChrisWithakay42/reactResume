@@ -1,28 +1,28 @@
 import logging
 import os
 
+import boto3
+
 from cicd.aws_wrapper import S3Wrapper
+from cicd.exceptions import BucketAlreadyOwnedByYou
 
 logger = logging.getLogger(__name__)
 
 
 def main(bucket_name: str):
-    # bucket = S3Wrapper('s3', region=os.getenv('AWS_REGION'))
-    # exists = bucket.exists(bucket_name=bucket_name)
-    # if not exists:
-    #     logger.info(f'Bucket {bucket_name} does not exist. Creating now...')
-    #     bucket.create(bucket_name=bucket_name)
-    #     bucket.upload_files(bucket_name=bucket_name)
-    #     bucket.configure_web_hosting(bucket_name=bucket_name, index_file='index.html')
-    #     bucket.set_acl(bucket_name=bucket_name)
-    #     logger.info(f'Success fully created bucket {bucket_name}. Files are uploaded. Bucket configured for web hosting.')
-    # else:
-    #     logger.info(f'Found bucket {bucket_name}. Starting file upload and configuration.')
-    #     bucket.upload_files(bucket_name=bucket_name)
-    #     bucket.configure_web_hosting(bucket_name=bucket_name, index_file='index.html')
-    #     bucket.set_acl(bucket_name=bucket_name)
-    #     logger.info(f'Successfully uploaded files and set web hosting configuration for {bucket_name}.')
-    ...
+    region_name = 'eu-west-2'
+    client = boto3.client('s3', region_name=region_name)
+    s3_wrapper = S3Wrapper(client=client, region_name=region_name)
+    location_configuration = {
+        'LocationConstraint': 'eu-west-2'
+    }
+    try:
+        s3_wrapper.create_bucket(bucket_name=bucket_name, bucket_configuration=location_configuration)
+    except BucketAlreadyOwnedByYou:
+        s3_wrapper.upload_files(bucket_name=bucket_name, source_dir='/dist')
+    else:
+        s3_wrapper.configure_bucket_for_web_hosting(bucket_name=bucket_name)
+        s3_wrapper.upload_files(bucket_name=bucket_name, source_dir='/dist')
 
 
 if __name__ == '__main__':
