@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
+
 // import config from "../config.ts"
 
 interface FormData {
@@ -24,24 +25,24 @@ export const Contact = () => {
 
     const validateForm = (): boolean => {
         const validationRules: { field: keyof FormData; message: string }[] = [
-        { field: 'name', message: 'Name is required' },
-        { field: 'phone', message: 'Phone number is required' },
-        { field: 'email', message: 'Email address is required' },
-        { field: 'subject', message: 'Subject is required' },
-        { field: 'message', message: 'Message is required' }
-    ];
+            {field: 'name', message: 'Name is required'},
+            {field: 'phone', message: 'Phone number is required'},
+            {field: 'email', message: 'Email address is required'},
+            {field: 'subject', message: 'Subject is required'},
+            {field: 'message', message: 'Message is required'}
+        ];
 
-    const validationErrors: Partial<FormData> = {};
+        const validationErrors: Partial<FormData> = {};
 
-    validationRules.forEach(rule => {
-        if (!formData[rule.field]) {
-            validationErrors[rule.field] = rule.message;
-        }
-    });
+        validationRules.forEach(rule => {
+            if (!formData[rule.field]) {
+                validationErrors[rule.field] = rule.message;
+            }
+        });
 
-    setErrors(validationErrors);
-    return Object.keys(validationErrors).length === 0;
-};
+        setErrors(validationErrors);
+        return Object.keys(validationErrors).length === 0;
+    };
 
     const apiUrl: string = 'https://0un73drall.execute-api.eu-west-2.amazonaws.com/contact'
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -57,7 +58,6 @@ export const Contact = () => {
                     'Content-Type': 'application/json'
                 }
             })
-            console.log('Lambda Response:', response);
             // Reset the form after successful submission
             setFormData({
                 name: '',
@@ -66,7 +66,10 @@ export const Contact = () => {
                 subject: '',
                 message: ''
             });
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const mainElement = document.getElementById('main');
+            if (mainElement) {
+                mainElement.scrollIntoView({behavior: 'smooth'});
+            }
         } catch (error) {
             console.error('Error sending email:', error);
         }
