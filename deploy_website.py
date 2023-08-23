@@ -26,4 +26,4 @@ def main(bucket_name: str):
 
 
 if __name__ == '__main__':
-    main(bucket_name='codewithakay.com')
+    main(bucket_name='codewithakay.dev')
