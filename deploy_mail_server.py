@@ -29,18 +29,19 @@ def get_iam_role():
 
 
 def main():
-    role = get_iam_role()
-    client = LambdaWrapper(service_name='lambda', iam_resource=role)
-    deployment_package = client.create_deployment_package(source_dir='/')
-    try:
-        client.create(
-            function_name='codewithakay_mail_server_test',
-            handler_name='send_mail',
-            iam_role=role.arn,
-            deployment_package=deployment_package
-        )
-    except (ParamValidationError, SSLError) as e:
-        logger.error(f'There was an error while trying to create Lambda Function.\n{e}')
+    # role = get_iam_role()
+    # client = LambdaWrapper(service_name='lambda', iam_resource=role)
+    # deployment_package = client.create_deployment_package(source_dir='/')
+    # try:
+    #     client.create(
+    #         function_name='codewithakay_mail_server_test',
+    #         handler_name='send_mail',
+    #         iam_role=role.arn,
+    #         deployment_package=deployment_package
+    #     )
+    # except (ParamValidationError, SSLError) as e:
+    #     logger.error(f'There was an error while trying to create Lambda Function.\n{e}')
+    print('Hello Lambda!')
 
 
 if __name__ == '__main__':
