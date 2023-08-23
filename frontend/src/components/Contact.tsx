@@ -60,13 +60,7 @@ export const Contact = () => {
             })
             console.log('Lambda Response:', response);
             // Reset the form after successful submission
-            setFormData({
-                name: '',
-                phone: '',
-                email: '',
-                subject: '',
-                message: ''
-            });
+            setFormData(initialFormData);
             const mainElement = document.getElementById('main');
             if (mainElement) {
                 mainElement.scrollIntoView({behavior: 'smooth'});
