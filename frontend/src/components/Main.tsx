@@ -36,10 +36,10 @@ const Main = () => {
                         />
                     </h2>
                     <div className='pt-6'>
-                        <a href={'https://github.com/ChrisWithakay42'} target={'_blank'}>
+                        <a href='https://github.com/ChrisWithakay42' target='_blank'>
                             <FaGithub className='cursor-pointer inline-block mx-2' size={20}/>
                         </a>
-                        <a href={'https://www.linkedin.com/in/krisztian-j/'} target={'_blank'}>
+                        <a href='https://www.linkedin.com/in/krisztian-j/' target='_blank'>
                             <FaLinkedinIn className='cursor-pointer inline-block mx-2' size={20}/>
                         </a>
                     </div>
