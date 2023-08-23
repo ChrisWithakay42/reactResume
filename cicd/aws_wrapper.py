@@ -31,6 +31,10 @@ class S3Wrapper:
                 raise BucketAlreadyOwnedByYou(bucket_name=bucket_name)
 
     def configure_bucket_for_web_hosting(self, bucket_name: str, error_file: str = None):
+        logger.info(f'Deleting default public access block for {bucket_name}.')
+
+        self.client.delete_public_access_block(Bucket=bucket_name)
+
         config = {
             'IndexDocument': {
                 'Suffix': 'index.html'
