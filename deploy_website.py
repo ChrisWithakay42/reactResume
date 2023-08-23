@@ -19,10 +19,10 @@ def main(bucket_name: str):
     try:
         s3_wrapper.create_bucket(bucket_name=bucket_name, bucket_configuration=location_configuration)
     except BucketAlreadyOwnedByYou:
-        s3_wrapper.upload_files(bucket_name=bucket_name, source_dir='/dist')
+        s3_wrapper.upload_files(bucket_name=bucket_name, source_dir='/frontend/dist')
     else:
         s3_wrapper.configure_bucket_for_web_hosting(bucket_name=bucket_name)
-        s3_wrapper.upload_files(bucket_name=bucket_name, source_dir='/dist')
+        s3_wrapper.upload_files(bucket_name=bucket_name, source_dir='/frontend/dist')
 
 
 if __name__ == '__main__':

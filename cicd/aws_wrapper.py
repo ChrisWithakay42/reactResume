@@ -10,6 +10,7 @@ from botocore.exceptions import ClientError
 from cicd import PROJECT_ROOT
 from cicd.exceptions import BucketAlreadyOwnedByYou
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
@@ -30,7 +31,11 @@ class S3Wrapper:
                 raise BucketAlreadyOwnedByYou(bucket_name=bucket_name)
 
     def configure_bucket_for_web_hosting(self, bucket_name: str, error_file: str = None):
-        config = {}
+        config = {
+            'IndexDocument': {
+                'Suffix': 'index.html'
+            },
+        }
 
         if error_file:
             config['ErrorDocument'] = error_file
@@ -75,7 +80,7 @@ class S3Wrapper:
                     logger.info(f'Uploading {file} to {s3_path}...')
                 except ClientError as e:
                     logger.error(f'An error occurred. Check logs for further details \n{e}')
-        logger.info(f'Files successfully uploaded to {bucket_name} bucket.')
+        # logger.info(f'Files successfully uploaded to {bucket_name} bucket.')
 
 
 class LamdbaWrapper:
