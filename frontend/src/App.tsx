@@ -5,6 +5,7 @@ import Profile from "./components/Profile.tsx";
 import Projects from "./components/Projects.tsx";
 import {Contact} from "./components/Contact.tsx";
 import {Helmet} from "react-helmet"
+import {FormProvider} from "./context/FormContext.tsx";
 
 
 function App() {
@@ -14,14 +15,16 @@ function App() {
             <Helmet>
                 <title>Code With a K</title>
             </Helmet>
-            <Sidenav />
-            <Main />
-            <Profile/>
-            <Work/>
-            <Projects />
-            <Contact />
+            <Sidenav/>
+            <FormProvider>
+                <Main/>
+                <Profile/>
+                <Work/>
+                <Projects/>
+                <Contact/>
+            </FormProvider>
         </div>
-  )
+    )
 }
 
 export default App

@@ -1,11 +1,22 @@
 import {TypeAnimation} from 'react-type-animation'
 import {FaGithub, FaLinkedinIn} from "react-icons/fa";
 import main from "../assets/main.jpg"
-
-// src='https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80'
-// src='https://images.unsplash.com/photo-1606229365485-93a3b8ee0385?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80'
+import {useForm} from "../context/FormContext.tsx";
+import {useEffect} from "react";
+import React from 'react';
 
 const Main = () => {
+    const {formSubmitted} = useForm();
+
+    useEffect(() => {
+        // Redirect after showing thank you message
+        if (formSubmitted) {
+            setTimeout(() => {
+                window.location.href = '/'; // Redirect to root after a delay
+            }, 16000); // Adjust the delay as needed
+        }
+    }, [formSubmitted]);
+
     return (
         <div id='main' className='relative h-screen'>
             <img
@@ -15,25 +26,47 @@ const Main = () => {
             />
             <div className='absolute inset-0 flex justify-center items-center bg-white bg-opacity-50'>
                 <div className='p-6 text-center rounded-lg'>
-                    <h1 className='text-4xl font-bold text-gray-800'>Hi! My name is Kris;</h1>
-                    <h2 className='text-2xl pt-4 text-gray-800'>
-                        I'm a
-                        <TypeAnimation
-                            sequence={[
-                                'Coder.',
-                                2000,
-                                'Developer.',
-                                2000,
-                                'Tech Enthusiast.',
-                                2000
-                            ]}
-                            wrapper="div"
-                            cursor={true}
-                            repeat={Infinity}
-                            speed={50}
-                            style={{fontSize: '1em', paddingLeft: '5px'}}
-                        />
-                    </h2>
+                    {formSubmitted ? (
+                        <h2 className='text-2xl pt-4 text-gray-800'>
+                            <TypeAnimation
+                                sequence={[
+                                    'Thank you for reaching out.',
+                                    2000,
+                                    'I will aim to respond within the next 24 hours.',
+                                    2000,
+                                    'Thanks! Bye.',
+                                    2000
+                                ]}
+                                wrapper='div'
+                                cursor={true}
+                                repeat={Infinity}
+                                speed={50}
+                                style={{fontSize: '1em', paddingLeft: '5px'}}
+                            />
+                        </h2>
+                    ) : (
+                        <React.Fragment>
+                            <h1 className='text-4xl font-bold text-gray-800'>Hi! My name is Kris;</h1>
+                            <h2 className='text-2xl pt-4 text-gray-800'>
+                                I'm a
+                                <TypeAnimation
+                                    sequence={[
+                                        'Coder.',
+                                        2000,
+                                        'Developer.',
+                                        2000,
+                                        'Tech Enthusiast.',
+                                        2000
+                                    ]}
+                                    wrapper='div'
+                                    cursor={true}
+                                    repeat={Infinity}
+                                    speed={50}
+                                    style={{fontSize: '1em', paddingLeft: '5px'}}
+                                />
+                            </h2>
+                        </React.Fragment>
+                    )}
                     <div className='pt-6'>
                         <FaGithub
                             className='cursor-pointer inline-block mx-2'

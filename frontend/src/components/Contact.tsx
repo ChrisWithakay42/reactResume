@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
+import {useForm} from "../context/FormContext.tsx";
 
 // import config from "../config.ts"
 
@@ -19,6 +20,7 @@ export const Contact = () => {
         subject: '',
         message: ''
     };
+    const { setFormSubmitted } = useForm();
 
     const [formData, setFormData] = useState<FormData>(initialFormData);
     const [errors, setErrors] = useState<Partial<FormData>>({}); // State for holding validation errors
@@ -45,8 +47,10 @@ export const Contact = () => {
     };
 
     const apiUrl: string = 'https://0un73drall.execute-api.eu-west-2.amazonaws.com/contact'
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
 
         if (!validateForm()) {
             return;
@@ -58,12 +62,14 @@ export const Contact = () => {
                     'Content-Type': 'application/json'
                 }
             })
-            console.log('Lambda Response:', response);
-            // Reset the form after successful submission
-            setFormData(initialFormData);
-            const mainElement = document.getElementById('main');
-            if (mainElement) {
-                mainElement.scrollIntoView({behavior: 'smooth'});
+            if (response.status === 200) {
+                console.log('Form submitted successfully');
+                setFormData(initialFormData);
+                setFormSubmitted(true);
+                const mainElement = document.getElementById('main');
+                if (mainElement) {
+                    mainElement.scrollIntoView({ behavior: 'smooth' });
+                }
             }
         } catch (error) {
             console.error('Error sending email:', error);
