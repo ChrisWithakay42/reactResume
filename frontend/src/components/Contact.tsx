@@ -2,8 +2,6 @@ import React, {useState} from "react";
 import axios from "axios";
 import {useForm} from "../context/FormContext.tsx";
 
-// import config from "../config.ts"
-
 interface FormData {
     name: string;
     phone: string;

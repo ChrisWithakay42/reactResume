@@ -12,6 +12,8 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@syncfusion/ej2-base": "^22.2.10",
+    "@syncfusion/ej2-react-popups": "^22.2.9",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "postcss": "^8.4.27",

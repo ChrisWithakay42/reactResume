@@ -13,7 +13,7 @@ const Main = () => {
         if (formSubmitted) {
             setTimeout(() => {
                 window.location.href = '/'; // Redirect to root after a delay
-            }, 16000); // Adjust the delay as needed
+            }, 14000); // Adjust the delay as needed
         }
     }, [formSubmitted]);
 
