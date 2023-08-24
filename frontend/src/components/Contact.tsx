@@ -20,7 +20,7 @@ export const Contact = () => {
         subject: '',
         message: ''
     };
-    const { setFormSubmitted } = useForm();
+    const {setFormSubmitted} = useForm();
 
     const [formData, setFormData] = useState<FormData>(initialFormData);
     const [errors, setErrors] = useState<Partial<FormData>>({}); // State for holding validation errors
@@ -46,7 +46,6 @@ export const Contact = () => {
         return Object.keys(validationErrors).length === 0;
     };
 
-    const apiUrl: string = 'https://0un73drall.execute-api.eu-west-2.amazonaws.com/contact'
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -56,7 +55,10 @@ export const Contact = () => {
             return;
         }
 
+        const apiUrl = import.meta.env.VITE_AWS_API_GATEWAY_URL;
+
         try {
+            console.log('apiUrl:', apiUrl);
             const response = await axios.post(apiUrl, formData, {
                 headers: {
                     'Content-Type': 'application/json'
@@ -68,7 +70,7 @@ export const Contact = () => {
                 setFormSubmitted(true);
                 const mainElement = document.getElementById('main');
                 if (mainElement) {
-                    mainElement.scrollIntoView({ behavior: 'smooth' });
+                    mainElement.scrollIntoView({behavior: 'smooth'});
                 }
             }
         } catch (error) {

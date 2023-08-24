@@ -32,9 +32,9 @@ const Main = () => {
                                 sequence={[
                                     'Thank you for reaching out.',
                                     2000,
-                                    'I will aim to respond within the next 24 hours.',
+                                    'I will get back to you ASAP.',
                                     2000,
-                                    'Thanks! Bye.',
+                                    'Bye.',
                                     2000
                                 ]}
                                 wrapper='div'
