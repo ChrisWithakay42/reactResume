@@ -12,8 +12,8 @@ const Main = () => {
         // Redirect after showing thank you message
         if (formSubmitted) {
             setTimeout(() => {
-                window.location.href = '/'; // Redirect to root after a delay
-            }, 12000); // Adjust the delay as needed
+                window.location.href = '/';
+            }, 12000);
         }
     }, [formSubmitted]);
 

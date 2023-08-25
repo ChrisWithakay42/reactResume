@@ -5,6 +5,7 @@ import mimetypes
 import os
 import zipfile
 
+import boto3
 from botocore.exceptions import ClientError
 
 from cicd import PROJECT_ROOT
@@ -14,9 +15,21 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
+class Boto3Client:
+    client = None
+
+    def __init__(self, service_name: str, region_name: str):
+        self.client = self._get_boto3_client(service_name, region_name)
+
+    @staticmethod
+    def _get_boto3_client(service_name: str, region_name: str):
+        client = boto3.client(service_name, region_name)
+        return client
+
+
 class S3Wrapper:
 
-    def __init__(self, client, region_name: str):
+    def __init__(self, client: Boto3Client, region_name: str):
         self.client = client
         self.region = region_name
 
@@ -84,14 +97,12 @@ class S3Wrapper:
                     logger.info(f'Uploading {file} to {s3_path}...')
                 except ClientError as e:
                     logger.error(f'An error occurred. Check logs for further details \n{e}')
-        # logger.info(f'Files successfully uploaded to {bucket_name} bucket.')
 
 
-class LamdbaWrapper:
+class LambdaWrapper:
 
-    def __init__(self, client, region_name: str, iam_resource):
+    def __init__(self, client: Boto3Client, iam_resource: str):
         self.client = client
-        self.region_name = region_name
         self.iam_resource = iam_resource
 
     @staticmethod
@@ -104,3 +115,6 @@ class LamdbaWrapper:
                     arcname = os.path.relpath(file_path, arcname)
             buffer.seek(0)
             return buffer.read()
+
+    def create_function(self, client, ):
+        ...
