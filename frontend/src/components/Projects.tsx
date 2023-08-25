@@ -13,10 +13,10 @@ const Projects = () => {
                 projects I have been working on.
             </p>
             <div className='grid sm:grid-cols-2 gap-12'>
-                <ProjectItem img={under_construction} title='User Login' stack={'ReactJS/Flask'}/>
-                <ProjectItem img={under_construction} title='E-Commerce' stack={'ReactJS/Django'}/>
-                <ProjectItem img={under_construction} title='User CRUD' stack={'ReactJS/Go'}/>
-                <ProjectItem img={under_construction} title='Dash Board' stack={'ReactJS/Django'}/>
+                <ProjectItem img={under_construction} title='User Login' stack={'ReactJS/Flask'} link={'https://github.com/ChrisWithakay42/jwt_app'}/>
+                <ProjectItem img={under_construction} title='E-Commerce' stack={'ReactJS/Django'} link={'https://github.com/ChrisWithakay42/drf_eCommerce'}/>
+                <ProjectItem img={under_construction} title='User CRUD' stack={'ReactJS/Go'} link={'https://github.com/ChrisWithakay42/GoREST'}/>
+                <ProjectItem img={under_construction} title='Dash Board' stack={'ReactJS/Django'} link={'/'}/>
             </div>
         </div>
     )

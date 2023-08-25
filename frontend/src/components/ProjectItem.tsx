@@ -1,16 +1,6 @@
 // import {useState} from "react";
 
-const ProjectItem = ({img, title, stack}: { img: string; title: string, stack: string }) => {
-    // const [isModalOpen, setIsModalOpen] = useState(false);
-    //
-    // const openModal = () => {
-    //     setIsModalOpen(true);
-    // };
-    //
-    // const closeModal = () => {
-    //     setIsModalOpen(false);
-    // };
-
+const ProjectItem = ({img, title, stack, link}: { img: string; title: string, stack: string, link: string }) => {
     return (
         <div
             className='relative flex items-center justify-center h-auto w-full shadow-xl shdow-gray-400 rounded-xl group hover:bg-gradient-to-r from-gray-200 to-[#001b5e]'>
@@ -21,7 +11,7 @@ const ProjectItem = ({img, title, stack}: { img: string; title: string, stack: s
                     {title}
                 </h3>
                 <p className='pb-4 pt-2 text-white text-center'>{stack}</p>
-                <a href='/'>
+                <a href={link}>
                     <p className='text-center p-3 rounded-lg bg-white text-gray-700 font-bold cursor-pointer text-lg'>More Info</p>
                 </a>
             </div>
