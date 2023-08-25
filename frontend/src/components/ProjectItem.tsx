@@ -11,9 +11,8 @@ const ProjectItem = ({img, title, stack, link}: { img: string; title: string, st
                     {title}
                 </h3>
                 <p className='pb-4 pt-2 text-white text-center'>{stack}</p>
-                <a href={link}>
-                    <p className='text-center p-3 rounded-lg bg-white text-gray-700 font-bold cursor-pointer text-lg'>More Info</p>
-                </a>
+                <p className='text-center p-3 rounded-lg bg-white text-gray-700 font-bold cursor-pointer text-lg'
+                   onClick={() => window.open(link, '_blank')}>More Info</p>
             </div>
         </div>
     )
