@@ -1,5 +1,4 @@
 import ProjectItem from "./ProjectItem.tsx";
-import test_1 from "../assets/test_1.jpg"
 import under_construction from "../assets/under_construction.jpg"
 
 const Projects = () => {
