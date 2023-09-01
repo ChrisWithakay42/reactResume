@@ -14,6 +14,7 @@ function App() {
         <div>
             <Helmet>
                 <title>Code With a K</title>
+                <meta name={'description'} content={'Python web development consultancy'}/>
             </Helmet>
             <Sidenav/>
             <FormProvider>
