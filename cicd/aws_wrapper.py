@@ -4,6 +4,7 @@ import logging
 import mimetypes
 import os
 import zipfile
+from time import time
 
 import boto3
 from botocore.exceptions import ClientError
@@ -100,7 +101,26 @@ class S3Wrapper:
 
 
 class CloudFrontWrapper:
-    ...
+
+    def __init__(self, cloud_front_client):
+        self.cloud_front_client = cloud_front_client
+
+    def invalidate_cache(self, distribution_id):
+        try:
+            self.cloud_front_client.create_invalidation(
+                DistribuitionId=distribution_id,
+                InvalidationBatch={
+                    'Paths': {
+                        'Quantity': 1,
+                        'Items': [
+                            '/*'
+                        ],
+                    },
+                    'CallerReference': str(time()).replace(".", "")
+                }
+            )
+        except ClientError as e:
+            logger.error(f'{e.response["Error"]["Code"]}, {e.response["Error"]["Message"]}')
 
 
 class LambdaWrapper:
@@ -160,4 +180,3 @@ class LambdaWrapper:
             else:
                 logger.error(f'{e.response["Error"]["Code"]}\n{e.response["Error"]["Message"]}')
             return False
-
