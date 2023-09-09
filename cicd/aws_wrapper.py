@@ -180,3 +180,12 @@ class LambdaWrapper:
             else:
                 logger.error(f'{e.response["Error"]["Code"]}\n{e.response["Error"]["Message"]}')
             return False
+
+
+class ApiGatewayWrapper:
+
+    def __init__(self, api_gateway_client):
+        self.api_gateway_client = api_gateway_client
+
+    def create_rest_api(self):
+        ...
