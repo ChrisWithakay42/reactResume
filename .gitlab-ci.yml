@@ -42,5 +42,7 @@ deploy_mail_server:
   tags:
     - docker
   only:
+    changes:
+      - /contact_us/*
     refs:
       - main
