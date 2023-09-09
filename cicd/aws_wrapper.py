@@ -99,6 +99,10 @@ class S3Wrapper:
                     logger.error(f'An error occurred. Check logs for further details \n{e}')
 
 
+class CloudFrontWrapper:
+    ...
+
+
 class LambdaWrapper:
 
     def __init__(self, client: Boto3Client, iam_resource: str):
@@ -112,9 +116,48 @@ class LambdaWrapper:
             for root, _, files in os.walk(source_dir):
                 for file in files:
                     file_path = os.path.join(root, file)
-                    arcname = os.path.relpath(file_path, arcname)
-            buffer.seek(0)
-            return buffer.read()
+                    arcname = os.path.relpath(file_path, source_dir)  # Corrected arcname
+                    zipped.write(file_path, arcname=arcname)
+        buffer.seek(0)
+        return buffer.read()
 
-    def create_function(self, client, ):
-        ...
+    def create_function(
+            self,
+            function_name: str,
+            function_description: str,
+            handler_name: str,
+            deployment_file: bytes
+    ):
+        try:
+            self.client.create_function(
+                FunctionName=function_name,
+                Description=function_description,
+                Runtime='python3.10',
+                Role=self.iam_resource.arn,
+                Handler=handler_name,
+                Code={'ZipFile': deployment_file},
+                Publish=True
+            )
+        except ClientError as e:
+            logger.error(f'Could not create function with name {function_name}\n{e}')
+
+    def update_function_code(self, function_name: str, deployment_package: bytes):
+        try:
+            self.client.update_function_code(
+                FunctionName=function_name,
+                ZipFile=deployment_package
+            )
+        except ClientError as e:
+            logger.error(f'Could not update function {function_name}\n{e}')
+
+    def get_function(self, function_name: str) -> bool:
+        try:
+            self.client.get_function(FunctionName=function_name)
+            return True
+        except ClientError as e:
+            if e.response['Error']['Code'] == 'ResourceNotFoundException':
+                logger.error(f'Function {function_name} does not exist')
+            else:
+                logger.error(f'{e.response["Error"]["Code"]}\n{e.response["Error"]["Message"]}')
+            return False
+
