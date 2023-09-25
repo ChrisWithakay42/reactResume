@@ -9,8 +9,8 @@ from time import time
 import boto3
 from botocore.exceptions import ClientError
 
-from cicd import PROJECT_ROOT
-from cicd.exceptions import BucketAlreadyOwnedByYou
+from aws_wrapper import PROJECT_ROOT
+from aws_wrapper.exceptions import BucketAlreadyOwnedByYou
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

@@ -1,7 +1,7 @@
 import pytest
 from botocore.exceptions import ClientError
 
-from cicd.exceptions import BucketAlreadyOwnedByYou
+from aws_wrapper.exceptions import BucketAlreadyOwnedByYou
 
 
 class TestS3Wrapper:

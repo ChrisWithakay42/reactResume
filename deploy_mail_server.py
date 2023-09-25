@@ -5,8 +5,8 @@ import boto3
 from boto3.exceptions import ResourceLoadException
 from dotenv import load_dotenv
 
-from cicd import PROJECT_ROOT
-from cicd.aws_wrapper import LambdaWrapper
+from aws_wrapper import PROJECT_ROOT
+from aws_wrapper.wrapper import LambdaWrapper
 
 logger = logging.getLogger(__name__)
 

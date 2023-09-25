@@ -6,7 +6,7 @@ import pytest
 from moto import mock_s3
 from moto import mock_ses
 
-from cicd.aws_wrapper import S3Wrapper
+from aws_wrapper.wrapper import S3Wrapper
 
 
 @pytest.fixture

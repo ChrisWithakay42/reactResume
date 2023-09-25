@@ -1,6 +1,6 @@
 import boto3
 
-from cicd.aws_wrapper import CloudFrontWrapper
+from aws_wrapper.wrapper import CloudFrontWrapper
 
 
 def invalidate_cache(distribution_id: str):

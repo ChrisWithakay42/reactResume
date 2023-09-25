@@ -3,8 +3,8 @@ import os
 
 import boto3
 
-from cicd.aws_wrapper import S3Wrapper
-from cicd.exceptions import BucketAlreadyOwnedByYou
+from aws_wrapper.wrapper import S3Wrapper
+from aws_wrapper.exceptions import BucketAlreadyOwnedByYou
 
 logger = logging.getLogger(__name__)
 
