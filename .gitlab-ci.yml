@@ -27,7 +27,8 @@ deploy_website:
   image: $MAIN_IMAGE
   script:
     - pip install -r requirements.txt
-    - python deploy_website.py
+    - python cicd/deploy_website.py
+    - python cicd/cloud_front.py
   dependencies:
     - app_build
   tags:
@@ -38,7 +39,7 @@ deploy_mail_server:
   image: $MAIN_IMAGE
   script:
     - pip install -r requirements.txt
-    - python deploy_mail_server.py
+    - python cicd/deploy_mail_server.py
   tags:
     - docker
   only:
