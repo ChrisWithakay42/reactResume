@@ -1,0 +1,157 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Card</title>
+    
+    <!-- Linking to the external CSS file -->
+    <link rel="stylesheet" href="src/assets/styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- You can include additional meta tags, stylesheets, or scripts here -->
+</head>
+  <body>
+    <main role="main" class="main">
+      <section>
+        <div class="container-fluid">
+          <div class="row mb-5">
+              <div class="col-12 col-md-5 mx-auto text-center">
+                  <img class="img-fluid mx-auto" style="max-height: 500px;" src="src/assets/9a6gtOZBUU2.png">
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-12 col-md-6 mx-auto">
+                  <div class="box">
+                      <p>Phone contact</p>
+                        <a href="tel:+447387997336" class="d-none d-md-block">  
+                          <div class="col-12 px-0 input-box d-flex justify-content-between align-items-center">
+                              <p><i class="fas fa-mobile-alt mr-2"></i>Call mobile phone</p>
+                              <p class="form-control hg-initial mb-0">07387997336</p>
+                          </div>
+                        </a>
+                  </div>
+                <div class="box">
+                    <p>Send a message</p>
+                    <a href="mailto:kris@codewithakay.com" class="d-none d-md-block">  
+                      <div class="col-12 px-0 input-box d-flex justify-content-between align-items-center">
+                    <p><i class="far fa-paper-plane mr-2"></i>Send email</p>
+                          <p class="form-control hg-initial d-none d-md-block mb-0">kris@codewithakay.com</p>
+                      </div>
+                    </a>
+                    <a href="http://wa.me/+447387997336" class="d-none d-md-block" target="_blank">  
+                      <div class="col-12 px-0 input-box d-flex justify-content-between align-items-center">
+                    <p><i class="fab fa-whatsapp mr-2"></i>Send WhatsApp message</p>
+                          <p class="form-control hg-initial mb-0">07387997336</p>
+                      </div>
+                    </a>
+                </div>
+  
+                <div class="box">
+                  <p>Visit office</p>
+                  <a href="http://maps.google.com/?q=London+London+N10+England" class="d-none d-md-block" target="_blank">  
+                    <div class="col-12 px-0 input-box d-flex justify-content-between align-items-center">
+                      <p><i class="fas fa-map-marker-alt mr-2"></i>See map</p>
+                      <p class="form-control hg-initial mb-0">N10  London<br>England</p>
+                    </div>
+                  </a>
+                  </div>
+  
+        <div class="box">
+                    <p>Connect online</p>
+                      <a href="http://www.codewithakay.dev" class="d-none d-md-block" target="_blank">  
+                        <div class="col-12 px-0 input-box d-flex justify-content-between align-items-center">
+                          <p><i class="fas fa-globe mr-2""></i>Visit website</p>
+                          <p class="form-control hg-initial mb-0">HTTPS://www.codewithakay.dev</p>
+                        </div>
+                      </a>
+                              
+                      <a href="https://www.linkedin.com/in/krisztian-j" class="d-none d-md-block" target="_blank">  
+                        <div class="col-12 px-0 input-box d-flex justify-content-between align-items-center">
+                          <p><i class="fab fa-linkedin-in mr-2"></i>&nbsp;Visit LinkedIn</p>
+                            <p class="form-control hg-initial mb-0">https://www.linkedin.com/in/krisztian-j</p>
+                        </div>
+                      </a>
+                              
+                      <div class="col-12 px-0 input-box d-flex justify-content-between align-items-center d-block d-md-none">
+                        <!-- <a href="https://www.linkedin.com/in/krisztian-j" class="d-block d-md-none" target="_blank" style="flex-grow:1"> -->
+                        <!--   <p><i class="fab fa-linkedin-in mr-2"></i>&nbsp;https://www.linkedin.com/in/krisztian-j</p> -->
+                        <!-- </a> -->
+                        </div>
+                          <a href="https://github.com/ChrisWithakay42" class="d-none d-md-block" target="_blank">  
+                            <div class="col-12 px-0 input-box d-flex justify-content-between align-items-center">
+                              <p><i class="fab fa-github mr-2"></i>GitHub</p>
+                              <p class="form-control hg-initial mb-0">https://github.com/ChrisWithakay42</p>
+                            </div>
+                          </a>
+                        </div>
+                        <div class="col-12 d-block d-md-flex justify-content-center">
+                          <a class="btn btn-primary btn-s my-3 download_contact">Save</a>
+                          <button 
+                            type="submit" 
+                            class="btn btn-primary btn-s my-3" 
+                            data-toggle="modal" 
+                            data-target="#modal-share" 
+                            style="margin-left: 5px;">
+                          Share
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+        </div>
+      </section>
+    </main>
+    <div id="export_contact_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body pb-4">
+            <h5>Save this contact in your device</h5>
+            <p>You will find the contact in your downloads. Please open it to save it to your device.</p>
+            <p><img src="/assets/customer/download_simple.png"></p>
+          </div> 
+          <div class="modal-footer d-block d-md-flex justify-content-center">
+            <button class="btn btn-primary negative" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            <button id="resume_vcf_download" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Accept</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="modal-share" class="modal fade" role="dialog" aria-labelledby="modalCreate" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body pb-4">
+          <h5 class="pb-3">
+            <i class="fas fa-share" style="color:lightgrey"></i> Share this digital card
+          </h5>
+          <p><strong>This card is a webpage</strong> and this is its URL address. You can copy and paste it anywhere - text message, Whatsapp, email, LinkedIn, etc.:</p>
+          <div class="box">
+            <div class="col-12 px-0 input-box d-flex justify-content-between align-items-center d-block">
+              <p>&nbsp;https://www.know.ee/9a6gtOZBUU2?locale=en</p>
+              <a class="d-block pr-4 copy" data-clipboard-text="https://www.know.ee/9a6gtOZBUU2?locale=en" data-original-title="" title=""><img src="/assets/customer/edit.svg"></a>
+            </div>
+          </div>
+          <p><small>Download the app for <a href="https://play.google.com/store/apps/details?id=es.knowee" target="_blank">Android</a> or <a href="https://itunes.apple.com/us/app/knowee/id899558837?l" target="_blank">iPhone</a> to share this card from any mobile device and even scan received cards.</small></p>
+        </div>
+        <div class="modal-footer d-block d-md-flex justify-content-center">
+          <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+      </div>
+    </div> 
+  </div>
+  <script>
+    // Function to show or hide a modal by ID
+    function toggleModal(modalId) {
+      var modal = document.getElementById(modalId);
+      modal.classList.toggle("show");
+    }
+
+    // Event listeners for each button
+    document.querySelector('.download_contact').addEventListener('click', function() {
+      toggleModal('export_contact_modal');
+    });
+    document.querySelector('[data-target="#modal-share"]').addEventListener('click', function() {
+      toggleModal('modal-share');
+    });
+  </script>
+  </body>
+</html>
