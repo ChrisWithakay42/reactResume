@@ -86,12 +86,21 @@
                           </a>
                         </div>
                         <div class="col-12 d-block d-md-flex justify-content-center">
-                          <a class="btn btn-primary btn-s my-3 download_contact">Save</a>
+                          <!-- <a class="btn btn-primary btn-s my-3 download_contact" -->
+                          <!--     data-bs-toggle="modal" -->
+                          <!--   data-bs-target="export_contact_modal"> -->
+                          <!-- Save</a> -->
+                          <button
+                            type="submit"
+                            class="btn btn-primary btn-s my-3"
+                            data-bs-toggle="modal"
+                            data-bs-target="#export-contact-modal"
+                          >Save</button>
                           <button 
                             type="submit" 
                             class="btn btn-primary btn-s my-3" 
-                            data-toggle="modal" 
-                            data-target="#modal-share" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#modal-share" 
                             style="margin-left: 5px;">
                           Share
                           </button>
@@ -101,13 +110,13 @@
         </div>
       </section>
     </main>
-    <div id="export_contact_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="export-contact-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-body pb-4">
             <h5>Save this contact in your device</h5>
             <p>You will find the contact in your downloads. Please open it to save it to your device.</p>
-            <p><img src="/assets/customer/download_simple.png"></p>
+            <p><i class="far fa-download"></i></p>
           </div> 
           <div class="modal-footer d-block d-md-flex justify-content-center">
             <button class="btn btn-primary negative" data-dismiss="modal" aria-hidden="true">Cancel</button>
@@ -123,35 +132,24 @@
           <h5 class="pb-3">
             <i class="fas fa-share" style="color:lightgrey"></i> Share this digital card
           </h5>
-          <p><strong>This card is a webpage</strong> and this is its URL address. You can copy and paste it anywhere - text message, Whatsapp, email, LinkedIn, etc.:</p>
           <div class="box">
             <div class="col-12 px-0 input-box d-flex justify-content-between align-items-center d-block">
-              <p>&nbsp;https://www.know.ee/9a6gtOZBUU2?locale=en</p>
-              <a class="d-block pr-4 copy" data-clipboard-text="https://www.know.ee/9a6gtOZBUU2?locale=en" data-original-title="" title=""><img src="/assets/customer/edit.svg"></a>
+              <p>&nbsp;https://www.codewithakay.dev/cwk/business_card</p>
+                <a class="d-block pr-4 copy" data-clipboard-text="https://www.codewithakay.dev/cwk/business_card">
+                  <i class="far fa-clone"></i>
+                </a>
             </div>
           </div>
-          <p><small>Download the app for <a href="https://play.google.com/store/apps/details?id=es.knowee" target="_blank">Android</a> or <a href="https://itunes.apple.com/us/app/knowee/id899558837?l" target="_blank">iPhone</a> to share this card from any mobile device and even scan received cards.</small></p>
         </div>
         <div class="modal-footer d-block d-md-flex justify-content-center">
-          <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          <button class="btn btn-primary" data-bs-dismiss="modal" aria-hidden="true">Close</button>
         </div>
       </div>
     </div> 
   </div>
   <script>
-    // Function to show or hide a modal by ID
-    function toggleModal(modalId) {
-      var modal = document.getElementById(modalId);
-      modal.classList.toggle("show");
-    }
-
-    // Event listeners for each button
-    document.querySelector('.download_contact').addEventListener('click', function() {
-      toggleModal('export_contact_modal');
-    });
-    document.querySelector('[data-target="#modal-share"]').addEventListener('click', function() {
-      toggleModal('modal-share');
-    });
+    <!--Function to copy data to clipboard-->
+    <!--Function to download as contact-->
   </script>
   </body>
 </html>
