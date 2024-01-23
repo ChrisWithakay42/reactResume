@@ -111,43 +111,94 @@
     </section>
   
   </main>
-  <!-- <div id="modal-share" class="modal fade show" role="dialog" aria-labelledby="modalcreate" aria-modal="true" style="display: block;"> -->
-  <!-- <div class="modal-dialog" role="document"> -->
-  <!--   <div class="modal-content"> -->
-  <!--     <div class="modal-body pb-4"> -->
-  <!--       <h5 class="pb-3"> -->
-  <!--         <i class="fas fa-share" style="color:lightgrey"></i> share this digital card -->
-  <!--       </h5> -->
-  <!--       <p><strong>this card is a webpage</strong> and this is its url address. you can copy and paste it anywhere - text message, whatsapp, email, linkedin, etc.:</p> -->
-  <!--       <div class="box"> -->
-  <!--           <div class="col-12 px-0 input-box d-flex justify-content-between align-items-center d-block"> -->
-  <!--             <p>&nbsp;https://</p> -->
-  <!--             <a class="d-block pr-4 copy" data-clipboard-text="https://www." data-original-title="" title=""><img src="/assets/customer/edit.svg"></a> -->
-  <!--           </div> -->
-  <!--       </div> -->
-  <!--       <p><small>download the app for <a href="https://play.google.com/store/apps/details?id=es.knowee" target="_blank">android</a> or <a href="https://itunes.apple.com/us/app/knowee/id899558837?l" target="_blank">iphone</a> to share this card from any mobile device and even scan received cards.</small></p> -->
-  <!--     </div> -->
-  <!--     <div class="modal-footer d-block d-md-flex justify-content-center"> -->
-  <!--         <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">close</button> -->
-  <!--     </div> -->
-  <!--   </div> -->
-  <!-- </div>  -->
-  <!-- </div> -->
- <!--  <div id="export_contact_modal" class="modal fade show" tabindex="-1" aria-labelledby="mymodallabel" style="display: block;" aria-modal="true" role="dialog"> -->
- <!--    <div class="modal-dialog" role="document"> -->
- <!--      <div class="modal-content"> -->
- <!--        <div class="modal-body pb-4"> -->
- <!--          <h5>save this contact in your device</h5> -->
- <!--          <p>you will find the contact in your downloads. please open it to save it to your device.</p> -->
- <!--          <p><img src="/assets/customer/download_simple.png"></p> -->
- <!--        </div>  -->
- <!--        <div class="modal-footer d-block d-md-flex justify-content-center"> -->
- <!--          <button class="btn btn-primary negative" data-dismiss="modal" aria-hidden="true">cancel</button> -->
- <!--          <button id="resume_vcf_download" class="btn btn-primary" data-dismiss="modal" aria-hidden="true"> -->
- <!--            accept -->
- <!--          </button> -->
- <!--        </div> -->
- <!--     </div> -->
- <!--   </div> -->
- <!-- </div> -->
+  <!--=== modal check download contact ===-->
+  <!-- MODAL CONFIRMAR  USER DESCARGA VCF-->
+  <div id="export_contact_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body pb-4">
+          <h5>Save this contact in your device</h5>
+          <p>You will find the contact in your downloads. Please open it to save it to your device.</p>
+          <p><img src="/assets/customer/download_simple.png"></p>
+        </div> 
+        <div class="modal-footer d-block d-md-flex justify-content-center">
+          <button class="btn btn-primary negative" data-dismiss="modal" aria-hidden="true">Cancel</button>
+          <button id="resume_vcf_download" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">
+            Accept
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL CONFIRMAR  USER DESCARGA VCF-->
+  <!--=== modal check download contact ===-->
+  <div class="modal fade" id="chromeBookmark" tabindex="-1" role="dialog" aria-labelledby="chromeBookmarkLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-body pb-4">
+                  <h5>Save digital card</h5>
+                  <p>Save your digital card as a bookmark for quick access: click in the star to the right of the address bar or press Ctrl+D (Cmd+D if you're in a Mac)</p>
+              </div>
+              <div class="modal-footer d-block d-md-flex justify-content-center">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">
+                      Ok
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="modal fade" id="mozillaBookmark" tabindex="-1" role="dialog" aria-labelledby="mozillaBookmarkLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-body pb-4">
+                  <h5>Bookmark digital card</h5>
+                  <p>You are saving your digital card as a bookmark in your browser</p>
+              </div>
+              <div class="modal-footer d-block d-md-flex justify-content-center">
+                  <a title="Krisztian Jakovcevic" class="btn btn-primary negative mb-4 mb-md-0" rel="sidebar" href="https://www.know.ee/9a6gtOZBUU2?locale=en">Save</a>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">
+                      Ok
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="modal fade" id="addBookmark" tabindex="-1" role="dialog" aria-labelledby="addBookmarkLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-body pb-4">
+                  <h5>Bookmark digital card</h5>
+                  <p>You are saving your digital card as a bookmark in your browser</p>
+              </div>
+              <div class="modal-footer d-block d-md-flex justify-content-center">
+                  <a title="Krisztian Jakovcevic" class="jQueryBookmark btn btn-primary negative mb-4 mb-md-0" href="https://www.know.ee/9a6gtOZBUU2?locale=en">Save</a>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">
+                      Ok
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div id="modal-share" class="modal fade" role="dialog" aria-labelledby="modalCreate" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body pb-4">
+          <h5 class="pb-3">
+            <i class="fas fa-share" style="color:lightgrey"></i> Share this digital card
+          </h5>
+          <p><strong>This card is a webpage</strong> and this is its URL address. You can copy and paste it anywhere - text message, Whatsapp, email, LinkedIn, etc.:</p>
+          <div class="box">
+              <div class="col-12 px-0 input-box d-flex justify-content-between align-items-center d-block">
+                <p>&nbsp;https://www.know.ee/9a6gtOZBUU2?locale=en</p>
+                <a class="d-block pr-4 copy" data-clipboard-text="https://www.know.ee/9a6gtOZBUU2?locale=en" data-original-title="" title=""><img src="/assets/customer/edit.svg"></a>
+              </div>
+          </div>
+          <p><small>Download the app for <a href="https://play.google.com/store/apps/details?id=es.knowee" target="_blank">Android</a> or <a href="https://itunes.apple.com/us/app/knowee/id899558837?l" target="_blank">iPhone</a> to share this card from any mobile device and even scan received cards.</small></p>
+        </div>
+        <div class="modal-footer d-block d-md-flex justify-content-center">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+      </div>
+    </div> 
+  </div>
 </body>
